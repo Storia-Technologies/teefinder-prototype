@@ -1,6 +1,6 @@
-import { Tabs, usePathname } from 'expo-router';
+import { Tabs, usePathname, useRouter } from 'expo-router';
 import React from 'react';
-import { Platform } from 'react-native';
+import { Platform, TouchableOpacity, View } from 'react-native';
 
 import { HapticTab } from '@/components/HapticTab';
 import { IconSymbol } from '@/components/ui/IconSymbol';
@@ -10,10 +10,12 @@ import { useColorScheme } from '@/hooks/useColorScheme';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import Ionicons from '@expo/vector-icons/Ionicons';
+import { IconButton } from 'react-native-paper';
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
   const pathname = usePathname();
+  const router = useRouter()
   return (
     <Tabs
       screenOptions={{
@@ -35,7 +37,8 @@ export default function TabLayout() {
         //   },
         //   default: {},
         // }),
-        sceneStyle: { backgroundColor: Colors[colorScheme ?? 'light'].background }
+        sceneStyle: { backgroundColor: Colors[colorScheme ?? 'light'].background },
+        lazy: false
       }}>
       <Tabs.Screen
         name="index"
@@ -70,6 +73,36 @@ export default function TabLayout() {
         options={{
           href: null,
           headerShown: false,
+        }}
+      />
+      <Tabs.Screen
+        name="search"
+        options={{
+          href: null,
+          title: 'Search',
+          headerLeft: (props) => (
+            <TouchableOpacity
+              style={{ marginLeft: 12 }}
+              onPressIn={() => router.back()}
+              {...props}
+            >
+              <Ionicons name="arrow-back" size={24} color="#171725" />
+            </TouchableOpacity>
+          ),
+          headerRight: () => (
+            <View style={{
+              flexDirection: 'row',
+              paddingRight: 12,
+            }}>
+              <IconButton
+                icon="bell-badge-outline"
+                mode='outlined'
+                size={20}
+                onPress={() => console.log('Pressed')}
+              />
+
+            </View>
+          )
         }}
       />
     </Tabs>

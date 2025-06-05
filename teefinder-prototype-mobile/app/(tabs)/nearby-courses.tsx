@@ -6,6 +6,45 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import { useRouter } from 'expo-router';
 import Octicons from '@expo/vector-icons/Octicons';
 
+const golfCourses = [
+  {
+    id: 1,
+    name: 'Point Walter Golf',
+    location: 'Bicton, WA',
+    price: 75,
+    rating: 4.7,
+    image: require('@/assets/images/marangaru-golf.jpg'),
+    coordinate: { latitude: -32.0304, longitude: 115.7692 },
+  },
+  {
+    id: 2,
+    name: 'Collier Park Golf',
+    location: 'Como, WA',
+    price: 50,
+    rating: 4.0,
+    image: require('@/assets/images/marangaru-golf.jpg'),
+    coordinate: { latitude: -31.9505, longitude: 115.8605 },
+  },
+  {
+    id: 3,
+    name: 'Wembley Golf Course',
+    location: 'Wembley, WA',
+    price: 65,
+    rating: 4.5,
+    image: require('@/assets/images/marangaru-golf.jpg'),
+    coordinate: { latitude: -31.9369, longitude: 115.8114 },
+  },
+  {
+    id: 4,
+    name: 'Kings Park Golf',
+    location: 'West Perth, WA',
+    price: 80,
+    rating: 4.7,
+    image: require('@/assets/images/marangaru-golf.jpg'),
+    coordinate: { latitude: -31.9614, longitude: 115.8394 },
+  },
+];
+
 const NearbyCoursesScreen = () => {
   const insets = useSafeAreaInsets();
   const router = useRouter()
@@ -21,11 +60,24 @@ const NearbyCoursesScreen = () => {
           longitudeDelta: 0.05,
         }}
       >
-        <Marker
+        {/* <Marker
           coordinate={{ latitude: -31.995, longitude: 115.881 }}
           title="Point Walter Golf"
           description="$75/player"
-        />
+        /> */}
+        {golfCourses.map((course) => (
+          <Marker
+            key={course.id}
+            coordinate={course.coordinate}
+          >
+            <View style={styles.markerContainer}>
+              <Image source={course.image} style={styles.markerImage} />
+              <View style={styles.ratingBadge}>
+                <Text style={styles.ratingText}>{course.rating}</Text>
+              </View>
+            </View>
+          </Marker>
+        ))}
       </MapView>
 
       <View style={[styles.header, { paddingTop: insets.top + 10 }]}>
@@ -47,6 +99,7 @@ const NearbyCoursesScreen = () => {
             style={styles.searchInput}
             placeholder="Search..."
             placeholderTextColor="#9CA4AB"
+            onPress={()=>router.navigate('/(tabs)/search')}
           />
           <TouchableOpacity style={styles.expandButton}>
             <Octicons name="arrow-switch" size={18} color="#171725" />
@@ -235,7 +288,37 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#E2E4EA'
   },
-
+  markerContainer: {
+    alignItems: 'center',
+    justifyContent:'center',
+    // width: 150,
+    // height: 150,
+    // backgroundColor: '#000',
+    position: 'relative'
+  },
+  markerImage: {
+    width: 38,
+    height: 38,
+    borderRadius: 999,
+    borderWidth: 3,
+    borderColor: '#fff',
+    objectFit: 'cover',
+  },
+  ratingBadge: {
+    position: 'absolute',
+    bottom: 0,
+    backgroundColor: '#fff',
+    borderRadius: 10,
+    paddingHorizontal: 6,
+    paddingVertical: 2,
+    borderWidth: 2,
+    borderColor: '#fff',
+  },
+  ratingText: {
+    color: '#171725',
+    fontSize: 10,
+    fontWeight: '600',
+  },
 });
 
 

@@ -69,7 +69,7 @@ export default function HomeScreen() {
               icon="magnify"
               mode='outlined'
               size={20}
-              onPress={() => console.log('Pressed')}
+              onPress={()=>router.navigate('/(tabs)/search')}
             />
 
             <IconButton

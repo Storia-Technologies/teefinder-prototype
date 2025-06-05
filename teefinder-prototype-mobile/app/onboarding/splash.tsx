@@ -1,11 +1,11 @@
-import { useEffect } from 'react';
-import { View, Image, StyleSheet } from 'react-native';
 import { router } from 'expo-router';
+import { useEffect } from 'react';
+import { Image, StyleSheet, View } from 'react-native';
 
 export default function SplashScreen() {
   useEffect(() => {
     const timer = setTimeout(() => {
-      router.replace('/onboarding/onboarding' as any);
+      router.replace('/(tabs)' as any);
     }, 2500);
 
     return () => clearTimeout(timer);
