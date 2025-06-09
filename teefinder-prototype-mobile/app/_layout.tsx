@@ -7,6 +7,7 @@ import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import "react-native-reanimated";
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 import { useColorScheme } from "@/hooks/useColorScheme";
 
@@ -22,21 +23,22 @@ export default function RootLayout() {
   }
 
   return (
-    <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-      <Stack screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="onboarding/splash" />
-        <Stack.Screen name="onboarding/onboarding" />
-        
-        <Stack.Screen name="auth/login" />
-        <Stack.Screen name="auth/signup" />
-        <Stack.Screen name="auth/otp" />
-        <Stack.Screen name="auth/forgot-password" />
-        <Stack.Screen name="auth/create-password" />
-        <Stack.Screen name="auth/success" />
+    <GestureHandlerRootView>
+      <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
+        <Stack screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="onboarding/splash" />
+          <Stack.Screen name="onboarding/onboarding" />
 
-        <Stack.Screen name="(tabs)" />
-      </Stack>
-      <StatusBar style="auto" />
-    </ThemeProvider>
+          <Stack.Screen name="auth/login" />
+          <Stack.Screen name="auth/signup" />
+          <Stack.Screen name="auth/otp" />
+          <Stack.Screen name="auth/forgot-password" />
+          <Stack.Screen name="auth/create-password" />
+          <Stack.Screen name="auth/success" />
+
+          <Stack.Screen name="(tabs)" />
+        </Stack>
+        <StatusBar style="auto" />
+      </ThemeProvider></GestureHandlerRootView>
   );
 }

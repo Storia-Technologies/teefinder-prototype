@@ -1,10 +1,13 @@
 import { View, Text, StyleSheet, StatusBar, TouchableOpacity, Image, TextInput } from 'react-native'
-import React from 'react'
+import React, { useCallback, useMemo, useRef } from 'react'
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import MapView, { Marker } from 'react-native-maps';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { useRouter } from 'expo-router';
 import Octicons from '@expo/vector-icons/Octicons';
+import { withModalProvider } from '@/components/withModalProvider';
+import { BottomSheetBackdrop, BottomSheetBackdropProps, BottomSheetModal, BottomSheetScrollView } from '@gorhom/bottom-sheet';
+import SearchFilter from '@/components/SearchFilter';
 
 const golfCourses = [
   {
@@ -48,6 +51,23 @@ const golfCourses = [
 const NearbyCoursesScreen = () => {
   const insets = useSafeAreaInsets();
   const router = useRouter()
+  const bottomSheetModalRef = useRef<BottomSheetModal>(null);
+  const handleCloseModalPress = useCallback(() => {
+    bottomSheetModalRef.current?.dismiss();
+  }, []);
+  const handlePresentModalPress = useCallback(() => {
+    bottomSheetModalRef.current?.present();
+  }, []);
+  const handleSheetChanges = useCallback((index: number) => {
+    console.log('handleSheetChanges', index);
+  }, []);
+  const snapPoints = useMemo(() => ["25%", "50%", "95%"], []);
+  const renderBackdrop = useCallback(
+    (props: BottomSheetBackdropProps) => (
+      <BottomSheetBackdrop {...props} disappearsOnIndex={-1} appearsOnIndex={0} />
+    ),
+    []
+  );
   return (
     <View style={styles.container}>
       <StatusBar barStyle="dark-content" translucent backgroundColor="transparent" />
@@ -99,11 +119,26 @@ const NearbyCoursesScreen = () => {
             style={styles.searchInput}
             placeholder="Search..."
             placeholderTextColor="#9CA4AB"
-            onPress={()=>router.navigate('/(tabs)/search')}
+            onPress={() => router.navigate('/(tabs)/search')}
           />
-          <TouchableOpacity style={styles.expandButton}>
+          <TouchableOpacity style={styles.expandButton} onPress={handlePresentModalPress}>
             <Octicons name="arrow-switch" size={18} color="#171725" />
           </TouchableOpacity>
+          <BottomSheetModal
+            enablePanDownToClose
+            ref={bottomSheetModalRef}
+            onChange={handleSheetChanges}
+            index={2}
+            snapPoints={snapPoints}
+            enableDynamicSizing={false}
+            backdropComponent={renderBackdrop}
+
+          >
+            <BottomSheetScrollView>
+              <SearchFilter onClose={handleCloseModalPress}
+              />
+            </BottomSheetScrollView>
+          </BottomSheetModal>
         </View>
 
       </View>
@@ -290,7 +325,7 @@ const styles = StyleSheet.create({
   },
   markerContainer: {
     alignItems: 'center',
-    justifyContent:'center',
+    justifyContent: 'center',
     // width: 150,
     // height: 150,
     // backgroundColor: '#000',
@@ -322,5 +357,5 @@ const styles = StyleSheet.create({
 });
 
 
-export default NearbyCoursesScreen
+export default withModalProvider(NearbyCoursesScreen)
 

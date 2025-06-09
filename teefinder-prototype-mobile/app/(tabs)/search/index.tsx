@@ -1,8 +1,12 @@
 import { View, Text, TouchableOpacity, StyleSheet, TextInput, ScrollView, Image } from 'react-native'
-import React from 'react'
+import React, { useCallback, useMemo, useRef, useState } from 'react'
 import Ionicons from '@expo/vector-icons/Ionicons'
 import Octicons from '@expo/vector-icons/Octicons'
 import { useRouter } from 'expo-router'
+import { BottomSheetBackdrop, BottomSheetBackdropProps, BottomSheetModal, BottomSheetModalProvider, BottomSheetScrollView, BottomSheetView } from '@gorhom/bottom-sheet'
+import { withModalProvider } from '@/components/withModalProvider'
+import SearchFilter from '@/components/SearchFilter'
+
 
 const recentSearches = [
   { id: 1, name: "Whaleback Golf Course", location: "Parkwood, WA" },
@@ -39,6 +43,24 @@ const recentlyViewed = [
 
 const SearchScreen = () => {
   const router = useRouter()
+  const bottomSheetModalRef = useRef<BottomSheetModal>(null);
+  const handleCloseModalPress = useCallback(() => {
+    bottomSheetModalRef.current?.dismiss();
+  }, []);
+  const handlePresentModalPress = useCallback(() => {
+    bottomSheetModalRef.current?.present();
+  }, []);
+  const handleSheetChanges = useCallback((index: number) => {
+    console.log('handleSheetChanges', index);
+  }, []);
+  const snapPoints = useMemo(() => ["25%", "50%", "95%"], []);
+  const renderBackdrop = useCallback(
+    (props: BottomSheetBackdropProps) => (
+      <BottomSheetBackdrop {...props} disappearsOnIndex={-1} appearsOnIndex={0} />
+    ),
+    []
+  );
+
   return (
     <View style={styles.container}>
       <View style={styles.searchBar}>
@@ -48,9 +70,25 @@ const SearchScreen = () => {
           placeholder="Search..."
           placeholderTextColor="#9CA4AB"
         />
-        <TouchableOpacity style={styles.expandButton}>
+        <TouchableOpacity style={styles.expandButton} onPress={handlePresentModalPress}>
           <Octicons name="arrow-switch" size={18} color="#171725" />
         </TouchableOpacity>
+        <BottomSheetModal
+          enablePanDownToClose
+          ref={bottomSheetModalRef}
+          onChange={handleSheetChanges}
+          index={2}
+          snapPoints={snapPoints}
+          enableDynamicSizing={false}
+          backdropComponent={renderBackdrop}
+
+        >
+          <BottomSheetScrollView>
+            <SearchFilter onClose={handleCloseModalPress}
+            />
+          </BottomSheetScrollView>
+        </BottomSheetModal>
+
       </View>
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.sectionHeader}>
@@ -255,4 +293,4 @@ const styles = StyleSheet.create({
     marginLeft: 4,
   },
 })
-export default SearchScreen
+export default withModalProvider(SearchScreen)
