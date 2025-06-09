@@ -45,24 +45,44 @@ const reviews = [
     avatar: require('@/assets/images/avatar.png'),
   },
 ]
+const ratings = [
+  { stars: 1, count: 12, percentage: 2 },
+  { stars: 2, count: 20, percentage: 4 },
+  { stars: 3, count: 50, percentage: 10 },
+  { stars: 4, count: 100, percentage: 20 },
+  { stars: 5, count: 350, percentage: 70 },
+]
+
 const averageRating = 4.4
 const totalReviews = 532
 const ReviewsScreen = () => {
   return (
     <ScrollView style={{ padding: 14 }}>
       <View style={styles.ratingOverview}>
-        <Text style={styles.averageRating}>{averageRating}</Text>
-        <View style={styles.starsContainer}>
-          {[1, 2, 3, 4, 5].map((star) => (
-            <Ionicons
-              key={star}
-              name={'star'}
-              size={18}
-              color="#EDB900"
-            />
+        <View style={{width: '50%'}}>
+          <Text style={styles.averageRating}>{averageRating}</Text>
+          <View style={styles.starsContainer}>
+            {[1, 2, 3, 4, 5].map((star) => (
+              <Ionicons
+                key={star}
+                name={'star'}
+                size={18}
+                color="#EDB900"
+              />
+            ))}
+          </View>
+          <Text style={styles.totalReviews}>Based on {totalReviews} review</Text>
+        </View>
+        <View style={styles.ratingBarsContainer}>
+          {ratings.map((rating) => (
+            <View key={rating.stars} style={styles.ratingBarRow}>
+              <Text style={styles.ratingBarLabel}>{rating.stars}</Text>
+              <View style={styles.ratingBarContainer}>
+                <View style={[styles.ratingBar, { width: `${rating.percentage}%` }]} />
+              </View>
+            </View>
           ))}
         </View>
-        <Text style={styles.totalReviews}>Based on {totalReviews} review</Text>
       </View>
       <View style={styles.sectionHeader}>
         <Text style={styles.sectionTitle}>Reviews ({totalReviews})</Text>
@@ -89,8 +109,10 @@ const ReviewsScreen = () => {
 }
 const styles = StyleSheet.create({
   ratingOverview: {
+    flexDirection: 'row',
     alignItems: "center",
-    paddingVertical: 24,
+    justifyContent: 'space-between',
+    padding: 24,
     marginBottom: 24
   },
   averageRating: {
@@ -157,6 +179,33 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: "#9CA4AB",
     lineHeight: 20,
+  },
+  ratingBarsContainer: {
+    width: "100%",
+    flexShrink: 1
+  },
+  ratingBarRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 4,
+  },
+  ratingBarLabel: {
+    width: 20,
+    fontSize: 12,
+    fontWeight: '500',
+    color: "#9CA4AB",
+    marginRight: 8,
+  },
+  ratingBarContainer: {
+    flex: 1,
+    height: 6,
+    backgroundColor: "#E3E9ED",
+    borderRadius: 4,
+  },
+  ratingBar: {
+    height: "100%",
+    backgroundColor: "#266807",
+    borderRadius: 4,
   },
 })
 export default ReviewsScreen
