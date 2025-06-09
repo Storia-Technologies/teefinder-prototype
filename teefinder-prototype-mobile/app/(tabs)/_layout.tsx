@@ -48,10 +48,36 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="bookings"
+        name="notifications"
+        options={{
+          title: 'Notifications',
+          tabBarIcon: ({ color }) => <MaterialIcons size={28} name="school" color={color} />,
+          href: null,
+          headerShown: false, // Hide the header for the Courses screen and its nested screens
+        }}
+      />
+      <Tabs.Screen
+        name="bookings/index"
         options={{
           title: 'Bookings',
           tabBarIcon: ({ color }) => <MaterialIcons size={28} name="list-alt" color={color} />,
+          headerShown: false, // Hide the header for the Bookings screen and its nested screens
+        }}
+      />
+      <Tabs.Screen
+        name="bookings/[id]/index"
+        options={{
+          title: 'Booking Details',
+          href: null,
+          headerShown: false, // Hide the header for the Booking Details screen
+        }}
+      />
+      <Tabs.Screen
+        name="favorites/index"
+        options={{
+          title: 'My Favorites',
+          headerShown: false, // Hide the header for the Favorites screen
+          href: null,
         }}
       />
       <Tabs.Screen
@@ -62,10 +88,73 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="profile"
+        name="profile/index"
         options={{
           title: 'Profile',
           tabBarIcon: ({ color }) => <Ionicons size={28} name="person-outline" color={color} />,
+          headerShown: false, // Hide the header for the Profile screen and its nested screens
+        }}
+      />
+      <Tabs.Screen
+        name="profile/edit/index"
+        options={{
+          title: 'Edit Profile',
+          href: null,
+          tabBarIcon: ({ color }) => <Ionicons size={28} name="person-outline" color={color} />,
+          headerShown: false, // Hide the header for the Profile screen and its nested screens
+        }}
+      />
+      <Tabs.Screen
+        name="profile/legal-policies"
+        options={{
+          title: 'Legal & Policies',
+          href: null,
+          tabBarIcon: ({ color }) => <Ionicons size={28} name="person-outline" color={color} />,
+          headerShown: false, // Hide the header for the Profile screen and its nested screens
+        }}
+      />
+      <Tabs.Screen
+        name="profile/languages"
+        options={{
+          title: 'Languages',
+          href: null,
+          tabBarIcon: ({ color }) => <Ionicons size={28} name="person-outline" color={color} />,
+          headerShown: false, // Hide the header for the Profile screen and its nested screens
+        }}
+      />
+      <Tabs.Screen
+        name="profile/notifications"
+        options={{
+          title: 'Notifications',
+          href: null,
+          tabBarIcon: ({ color }) => <Ionicons size={28} name="person-outline" color={color} />,
+          headerShown: false, // Hide the header for the Profile screen and its nested screens
+        }}
+      />
+      <Tabs.Screen
+        name="profile/help-support"
+        options={{
+          title: 'Help & Support',
+          href: null,
+          tabBarIcon: ({ color }) => <Ionicons size={28} name="person-outline" color={color} />,
+          headerShown: false, // Hide the header for the Profile screen and its nested screens
+        }}
+      />
+      <Tabs.Screen
+        name="profile/security"
+        options={{
+          title: 'Security',
+          href: null,
+          tabBarIcon: ({ color }) => <Ionicons size={28} name="person-outline" color={color} />,
+          headerShown: false, // Hide the header for the Profile screen and its nested screens
+        }}
+      />
+      <Tabs.Screen
+        name="profile/payment-methods"
+        options={{
+          href: null,
+          title: 'Your Payment Methods',
+          headerShown: false,
         }}
       />
       <Tabs.Screen
@@ -98,7 +187,7 @@ export default function TabLayout() {
                 icon="bell-badge-outline"
                 mode='outlined'
                 size={20}
-                onPress={() => console.log('Pressed')}
+                onPress={() => router.navigate('/(tabs)/notifications')}
               />
 
             </View>
