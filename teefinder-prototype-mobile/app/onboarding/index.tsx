@@ -1,6 +1,15 @@
-import { useRef, useState } from 'react';
-import { View, Text, StyleSheet, ImageBackground, Dimensions, TouchableOpacity } from 'react-native';
-import Carousel from 'react-native-snap-carousel';
+import React, { useRef, useState } from 'react';
+import {
+  View,
+  Text,
+  FlatList,
+  ImageBackground,
+  Dimensions,
+  TouchableOpacity,
+  NativeScrollEvent,
+  NativeSyntheticEvent,
+  StyleSheet,
+} from 'react-native';
 import { router } from 'expo-router';
 
 const { width } = Dimensions.get('window');
@@ -30,8 +39,22 @@ const slides: Slide[] = [
 ];
 
 export default function OnboardingScreen() {
-  const carouselRef = useRef<Carousel<Slide>>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const flatListRef = useRef<FlatList>(null);
+
+  const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
+    const offsetX = event.nativeEvent.contentOffset.x;
+    const index = Math.round(offsetX / width);
+    setCurrentIndex(index);
+  };
+
+  const scrollToNext = () => {
+    if (currentIndex < slides.length - 1) {
+      flatListRef.current?.scrollToIndex({ index: currentIndex + 1 });
+    } else {
+      router.replace('/auth/login' as any); // Navigate to login screen
+    }
+  };
 
   const renderItem = ({ item }: { item: Slide }) => (
     <ImageBackground source={item.image} style={styles.slide}>
@@ -43,16 +66,7 @@ export default function OnboardingScreen() {
             <View key={i} style={[styles.dot, currentIndex === i && styles.activeDot]} />
           ))}
         </View>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => {
-            if (currentIndex === slides.length - 1) {
-              router.replace('/(tabs)');
-            } else {
-              carouselRef.current?.snapToNext();
-            }
-          }}
-        >
+        <TouchableOpacity style={styles.button} onPress={scrollToNext}>
           <Text style={styles.buttonText}>
             {currentIndex === slides.length - 1 ? 'Get Started' : 'Continue'}
           </Text>
@@ -62,19 +76,23 @@ export default function OnboardingScreen() {
   );
 
   return (
-    <Carousel
-      ref={carouselRef}
+    <FlatList
+      ref={flatListRef}
       data={slides}
+      keyExtractor={(_, i) => i.toString()}
       renderItem={renderItem}
-      sliderWidth={width}
-      itemWidth={width}
-      onSnapToItem={(index) => setCurrentIndex(index)}
+      horizontal
+      pagingEnabled
+      showsHorizontalScrollIndicator={false}
+      onScroll={handleScroll}
+      scrollEventThrottle={16}
     />
   );
 }
 
 const styles = StyleSheet.create({
   slide: {
+    width,
     flex: 1,
     justifyContent: 'flex-end',
   },
@@ -82,6 +100,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0,0,0,0.5)',
     padding: 30,
     paddingBottom: 50,
+    flex: 1,
+    justifyContent: 'flex-end',
   },
   title: {
     color: '#fff',
