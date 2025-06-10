@@ -192,6 +192,7 @@ export default function HomeScreen() {
               <TouchableOpacity
                 key={course.id}
                 style={[styles.courseListItem, index === golfCourses.length - 1 && styles.lastCourseListItem]}
+                onPress={()=>router.push('/(tabs)/search/details')}
               >
                 <Image source={course.image} style={styles.courseListImage} />
                 <View style={styles.courseListInfo}>

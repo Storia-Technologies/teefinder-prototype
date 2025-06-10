@@ -194,6 +194,14 @@ export default function TabLayout() {
           )
         }}
       />
+      <Tabs.Screen
+        name="booking"
+        options={{
+          href: null,
+          title: 'Booking',
+          headerShown: false,
+        }}
+      />
     </Tabs>
   );
 }

@@ -194,7 +194,7 @@ const DetailsScreen = () => {
           <Text style={styles.priceLabel}>Price</Text>
           <Text style={styles.priceValue}>$120.00</Text>
         </View>
-        <TouchableOpacity style={styles.bookingButton}>
+        <TouchableOpacity style={styles.bookingButton} onPress={()=>router.push('/(tabs)/booking')}>
           <Text style={styles.bookingButtonText}>Booking Now</Text>
         </TouchableOpacity>
       </View>
