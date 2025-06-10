@@ -1,3 +1,4 @@
+import React from 'react';
 import { HelloWave } from '@/components/HelloWave';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
@@ -49,6 +50,8 @@ const golfCourses = [
 export default function HomeScreen() {
   const colorScheme = useColorScheme();
   const router = useRouter()
+  const [selectedFacility, setSelectedFacility] = React.useState<'all' | 'tavern' | 'hire' | 'eot'>('all');
+
   return (
     <>
       <Stack.Screen options={{
@@ -76,7 +79,7 @@ export default function HomeScreen() {
               icon="bell-badge-outline"
               mode='outlined'
               size={20}
-              onPress={() => console.log('Pressed')}
+              onPress={() => router.navigate('/(tabs)/notifications')}
             />
 
           </View>
@@ -418,7 +421,8 @@ const styles = StyleSheet.create({
     marginLeft: 4,
   },
   filterTabs: {
-    // marginBottom: 16,
+    marginBottom: 16,
+    marginTop: 0,
   },
   filterTab: {
     flexDirection: 'row',
@@ -431,18 +435,17 @@ const styles = StyleSheet.create({
   },
   activeFilterTab: {
     backgroundColor: '#266807',
-
   },
   filterTabText: {
     fontSize: 12,
-    fontWeight: 400,
+    fontWeight: '400',
     color: '#66707A',
     marginLeft: 4,
   },
   activeFilterTabText: {
     color: 'white',
     fontSize: 14,
-    fontWeight: 600
+    fontWeight: 600,
   },
   courseListItem: {
     flexDirection: 'row',

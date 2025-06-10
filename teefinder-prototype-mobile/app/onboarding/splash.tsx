@@ -5,7 +5,7 @@ import { Image, StyleSheet, View } from 'react-native';
 export default function SplashScreen() {
   useEffect(() => {
     const timer = setTimeout(() => {
-      router.replace('/(tabs)' as any);
+      router.replace('/onboarding' as any);
     }, 2500);
 
     return () => clearTimeout(timer);
