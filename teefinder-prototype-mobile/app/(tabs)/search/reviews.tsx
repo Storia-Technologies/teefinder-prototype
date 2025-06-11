@@ -1,6 +1,8 @@
 import { View, Text, ScrollView, TouchableOpacity, Image, StyleSheet } from 'react-native'
 import React from 'react'
 import Ionicons from '@expo/vector-icons/Ionicons'
+import { SafeAreaView } from 'react-native-safe-area-context'
+import { useRouter } from 'expo-router'
 const reviews = [
   {
     id: 1,
@@ -56,58 +58,79 @@ const ratings = [
 const averageRating = 4.4
 const totalReviews = 532
 const ReviewsScreen = () => {
+  const router = useRouter()
   return (
-    <ScrollView style={{ padding: 14 }}>
-      <View style={styles.ratingOverview}>
-        <View style={{width: '50%'}}>
-          <Text style={styles.averageRating}>{averageRating}</Text>
-          <View style={styles.starsContainer}>
-            {[1, 2, 3, 4, 5].map((star) => (
-              <Ionicons
-                key={star}
-                name={'star'}
-                size={18}
-                color="#EDB900"
-              />
-            ))}
-          </View>
-          <Text style={styles.totalReviews}>Based on {totalReviews} review</Text>
-        </View>
-        <View style={styles.ratingBarsContainer}>
-          {ratings.map((rating) => (
-            <View key={rating.stars} style={styles.ratingBarRow}>
-              <Text style={styles.ratingBarLabel}>{rating.stars}</Text>
-              <View style={styles.ratingBarContainer}>
-                <View style={[styles.ratingBar, { width: `${rating.percentage}%` }]} />
-              </View>
+    <SafeAreaView>
+      <View style={styles.header}>
+        <TouchableOpacity onPress={() => router.back()}>
+          <Ionicons name="arrow-back" size={24} color="black" />
+        </TouchableOpacity>
+        <Text style={styles.headerTitle}>Reviews</Text>
+        <Ionicons name="filter" size={24} color="#171725" />
+      </View>
+      <ScrollView style={{ padding: 14 }}>
+        <View style={styles.ratingOverview}>
+          <View style={{ width: '50%' }}>
+            <Text style={styles.averageRating}>{averageRating}</Text>
+            <View style={styles.starsContainer}>
+              {[1, 2, 3, 4, 5].map((star) => (
+                <Ionicons
+                  key={star}
+                  name={'star'}
+                  size={18}
+                  color="#EDB900"
+                />
+              ))}
             </View>
-          ))}
-        </View>
-      </View>
-      <View style={styles.sectionHeader}>
-        <Text style={styles.sectionTitle}>Reviews ({totalReviews})</Text>
-      </View>
-      {reviews.map((review) => (
-        <View key={review.id} style={styles.reviewItem}>
-          <View style={styles.reviewContainer}>
-            <Image source={review.avatar} style={styles.reviewAvatar} />
-            <View style={{ flexShrink: 1 }}>
-              <View style={styles.reviewHeader}>
-                <Text style={styles.reviewerName}>{review.name}</Text>
-                <View style={styles.reviewRating}>
-                  <Ionicons name="star" size={16} color="#FFBB0D" />
-                  <Text style={styles.reviewRatingText}>{review.rating}</Text>
+            <Text style={styles.totalReviews}>Based on {totalReviews} review</Text>
+          </View>
+          <View style={styles.ratingBarsContainer}>
+            {ratings.map((rating) => (
+              <View key={rating.stars} style={styles.ratingBarRow}>
+                <Text style={styles.ratingBarLabel}>{rating.stars}</Text>
+                <View style={styles.ratingBarContainer}>
+                  <View style={[styles.ratingBar, { width: `${rating.percentage}%` }]} />
                 </View>
               </View>
-              <Text style={styles.reviewComment}>{review.comment}</Text>
-            </View>
+            ))}
           </View>
         </View>
-      ))}
-    </ScrollView>
+        <View style={styles.sectionHeader}>
+          <Text style={styles.sectionTitle}>Reviews ({totalReviews})</Text>
+        </View>
+        {reviews.map((review) => (
+          <View key={review.id} style={styles.reviewItem}>
+            <View style={styles.reviewContainer}>
+              <Image source={review.avatar} style={styles.reviewAvatar} />
+              <View style={{ flexShrink: 1 }}>
+                <View style={styles.reviewHeader}>
+                  <Text style={styles.reviewerName}>{review.name}</Text>
+                  <View style={styles.reviewRating}>
+                    <Ionicons name="star" size={16} color="#FFBB0D" />
+                    <Text style={styles.reviewRatingText}>{review.rating}</Text>
+                  </View>
+                </View>
+                <Text style={styles.reviewComment}>{review.comment}</Text>
+              </View>
+            </View>
+          </View>
+        ))}
+      </ScrollView>
+    </SafeAreaView>
   )
 }
 const styles = StyleSheet.create({
+  header: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+  },
+  headerTitle: {
+    fontSize: 18,
+    fontWeight: "600",
+  },
   ratingOverview: {
     flexDirection: 'row',
     alignItems: "center",

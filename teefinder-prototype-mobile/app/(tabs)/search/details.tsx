@@ -1,8 +1,11 @@
 import { View, Text, TouchableOpacity, ScrollView, StyleSheet, Image } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 import Ionicons from '@expo/vector-icons/Ionicons'
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps'
 import { useRouter } from 'expo-router'
+import { Button, Menu } from 'react-native-paper'
+import { SafeAreaView } from 'react-native-safe-area-context'
+import ShareModal from '@/components/ShareModal'
 const facilities = [
   { id: "tavern", name: "Tavern", icon: "beer-outline" },
   { id: "restaurant", name: "Restaurant", icon: "restaurant-outline" },
@@ -51,9 +54,31 @@ const recommendations = [
 ]
 
 const DetailsScreen = () => {
-  const router= useRouter()
+  const router = useRouter()
+  const [visible, setVisible] = useState(false);
+  const [showShareModal, setShowShareModal] = useState(false)
+  const openMenu = () => setVisible(true);
+
+  const closeMenu = () => setVisible(false);
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
+      <View style={styles.header}>
+        <TouchableOpacity onPress={() => router.back()}>
+          <Ionicons name="arrow-back" size={24} color="black" />
+        </TouchableOpacity>
+        <Text style={styles.headerTitle}>Details</Text>
+        <Menu
+          visible={visible}
+          onDismiss={closeMenu}
+          anchor={<TouchableOpacity onPress={openMenu}>
+            <Ionicons name="ellipsis-vertical" size={24} color="black" />
+          </TouchableOpacity>}>
+          <Menu.Item onPress={() => {
+            setShowShareModal(true)
+            closeMenu()
+          }} title="Share" />
+        </Menu>
+      </View>
       <ScrollView style={styles.scrollView}>
         <View style={styles.imageContainer}>
 
@@ -126,7 +151,7 @@ const DetailsScreen = () => {
           <View style={styles.sectionHeader}>
             <Text style={styles.sectionTitle}>Reviews</Text>
             <TouchableOpacity
-            onPress={() => router.push("/(tabs)/search/reviews")}
+              onPress={() => router.push("/(tabs)/search/reviews")}
             >
               <Text style={styles.seeAllText}>See All</Text>
             </TouchableOpacity>
@@ -194,17 +219,33 @@ const DetailsScreen = () => {
           <Text style={styles.priceLabel}>Price</Text>
           <Text style={styles.priceValue}>$120.00</Text>
         </View>
-        <TouchableOpacity style={styles.bookingButton} onPress={()=>router.push('/(tabs)/booking')}>
+        <TouchableOpacity style={styles.bookingButton} onPress={() => router.push('/(tabs)/booking')}>
           <Text style={styles.bookingButtonText}>Booking Now</Text>
         </TouchableOpacity>
       </View>
-    </View>
+      <ShareModal
+        visible={showShareModal}
+        onClose={() => setShowShareModal(false)}
+      />
+    </SafeAreaView>
   )
 }
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#FEFEFE",
+  },
+  header: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+  },
+  headerTitle: {
+    fontSize: 18,
+    fontWeight: "600",
+    color: "#171725",
   },
   scrollView: {
     flex: 1,

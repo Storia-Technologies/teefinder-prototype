@@ -6,6 +6,8 @@ import { useRouter } from 'expo-router'
 import { BottomSheetBackdrop, BottomSheetBackdropProps, BottomSheetModal, BottomSheetModalProvider, BottomSheetScrollView, BottomSheetView } from '@gorhom/bottom-sheet'
 import { withModalProvider } from '@/components/withModalProvider'
 import SearchFilter from '@/components/SearchFilter'
+import { SafeAreaView } from 'react-native-safe-area-context'
+import { IconButton } from 'react-native-paper'
 
 
 const recentSearches = [
@@ -62,7 +64,19 @@ const SearchScreen = () => {
   );
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
+      <View style={styles.header}>
+        <TouchableOpacity onPress={() => router.back()}>
+          <Ionicons name="arrow-back" size={24} color="black" />
+        </TouchableOpacity>
+        <Text style={styles.headerTitle}>Search</Text>
+        <IconButton
+          icon="bell-badge-outline"
+          mode='outlined'
+          size={20}
+          onPress={() => router.navigate('/(tabs)/notifications')}
+        />
+      </View>
       <View style={styles.searchBar}>
         <Ionicons name="search-outline" size={20} color="#78828A" />
         <TextInput
@@ -146,14 +160,25 @@ const SearchScreen = () => {
           </TouchableOpacity>
         ))}
       </ScrollView>
-    </View>
+    </SafeAreaView>
   )
 }
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 24,
     paddingHorizontal: 24,
+  },
+  header: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    paddingVertical: 12,
+    borderBottomWidth: 1,
+    borderBottomColor: "#f0f0f0",
+  },
+  headerTitle: {
+    fontSize: 18,
+    fontWeight: "600",
   },
   searchBar: {
     flexDirection: 'row',
@@ -161,6 +186,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
     borderRadius: 24,
     paddingHorizontal: 16,
+    marginTop: 24,
     borderWidth: 1,
     borderColor: '#E9EBED'
   },

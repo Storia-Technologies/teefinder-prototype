@@ -169,6 +169,7 @@ export default function TabLayout() {
         options={{
           href: null,
           title: 'Search',
+          headerShown: false,
           headerLeft: (props) => (
             <TouchableOpacity
               style={{ marginLeft: 12 }}

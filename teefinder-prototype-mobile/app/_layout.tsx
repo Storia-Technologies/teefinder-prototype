@@ -10,6 +10,7 @@ import "react-native-reanimated";
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 import { useColorScheme } from "@/hooks/useColorScheme";
+import { PaperProvider } from "react-native-paper";
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
@@ -25,20 +26,22 @@ export default function RootLayout() {
   return (
     <GestureHandlerRootView>
       <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-        <Stack screenOptions={{ headerShown: false }}>
-          <Stack.Screen name="onboarding/splash" />
-          <Stack.Screen name="onboarding/onboarding" />
+        <PaperProvider>
+          <Stack screenOptions={{ headerShown: false }}>
+            <Stack.Screen name="onboarding/splash" />
+            <Stack.Screen name="onboarding/onboarding" />
 
-          <Stack.Screen name="auth/login" />
-          <Stack.Screen name="auth/signup" />
-          <Stack.Screen name="auth/otp" />
-          <Stack.Screen name="auth/forgot-password" />
-          <Stack.Screen name="auth/create-password" />
-          <Stack.Screen name="auth/success" />
+            <Stack.Screen name="auth/login" />
+            <Stack.Screen name="auth/signup" />
+            <Stack.Screen name="auth/otp" />
+            <Stack.Screen name="auth/forgot-password" />
+            <Stack.Screen name="auth/create-password" />
+            <Stack.Screen name="auth/success" />
 
-          <Stack.Screen name="(tabs)" />
-        </Stack>
-        <StatusBar style="auto" />
+            <Stack.Screen name="(tabs)" />
+          </Stack>
+          <StatusBar style="auto" />
+        </PaperProvider>
       </ThemeProvider></GestureHandlerRootView>
   );
 }
