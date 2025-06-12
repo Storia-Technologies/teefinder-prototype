@@ -60,10 +60,8 @@ const ProfileScreen = () => {
 
   return (
     <View style={styles.container}>
-      {/* Header */}
       <Text style={styles.header}>Profile</Text>
 
-      {/* Profile Info */}
       <View style={styles.profileRow}>
         <Image
           source={require('@/assets/images/avatar.png')}
@@ -78,10 +76,8 @@ const ProfileScreen = () => {
         </TouchableOpacity>
       </View>
 
-      {/* Settings Label */}
       <Text style={styles.settingLabel}>Setting</Text>
 
-      {/* Options */}
       <View style={styles.optionsContainer}>
         {profileOptions.map((option, idx) => (
           <View key={option.label}>
@@ -97,12 +93,10 @@ const ProfileScreen = () => {
         ))}
       </View>
 
-      {/* Logout */}
       <TouchableOpacity style={styles.logoutBtn} onPress={toggleModal}>
         <Text style={styles.logoutText}>Logout</Text>
       </TouchableOpacity>
 
-      {/* Logout Confirmation Modal */}
       <Modal visible={isModalVisible} transparent animationType="fade">
         <View style={styles.modalContainer}>
           <View style={styles.modalContent}>

@@ -41,19 +41,16 @@ export default function OTP() {
 
   return (
     <View style={styles.container}>
-      {/* Back Button */}
       <TouchableOpacity style={styles.backBtn} onPress={handleBack}>
         <Ionicons name="arrow-back" size={24} color="#171725" />
       </TouchableOpacity>
 
-      {/* Title */}
       <Text style={styles.title}>Enter OTP</Text>
       <Text style={styles.subtitle}>
         We have just sent you 4 digit code via your email
       </Text>
       <Text style={styles.email}>{email}</Text>
 
-      {/* OTP Inputs */}
       <View style={styles.otpContainer}>
         {otp.map((digit, idx) => (
           <TextInput
@@ -77,7 +74,6 @@ export default function OTP() {
         ))}
       </View>
 
-      {/* Continue Button (for login flow) */}
       {!isNewAccount && (
         <TouchableOpacity
           style={styles.continueBtn}
@@ -87,14 +83,12 @@ export default function OTP() {
         </TouchableOpacity>
       )}
 
-      {/* Resend Link */}
       <TouchableOpacity style={styles.resendBtn}>
         <Text style={styles.resendText}>
           Didn’t receive code? <Text style={styles.resendLink}>Resend Code</Text>
         </Text>
       </TouchableOpacity>
 
-      {/* Terms Modal */}
       <Modal visible={showTerms} transparent animationType="fade">
         <View style={styles.modalOverlay}>
           <View style={styles.termsModal}>

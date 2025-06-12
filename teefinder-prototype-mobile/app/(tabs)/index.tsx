@@ -156,7 +156,6 @@ export default function HomeScreen() {
               </TouchableOpacity>
             </View>
 
-            {/* Filter Tabs */}
             <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.filterTabs}>
               <TouchableOpacity style={[styles.filterTab, styles.activeFilterTab]}>
                 <Text style={[styles.filterTabText, styles.activeFilterTabText]}>All</Text>
@@ -187,7 +186,6 @@ export default function HomeScreen() {
               </TouchableOpacity>
             </ScrollView>
 
-            {/* Course List */}
             {golfCourses.map((course, index) => (
               <TouchableOpacity
                 key={course.id}

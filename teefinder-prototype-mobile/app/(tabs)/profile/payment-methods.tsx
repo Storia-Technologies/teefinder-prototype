@@ -97,7 +97,6 @@ const PaymentMethodsScreen = () => {
 
   return (
     <View style={styles.container}>
-      {/* Header */}
       <View style={styles.header}>
         <TouchableOpacity onPress={() => router.push('/profile')}>
           <Ionicons name="arrow-back" size={24} color="#222" />
@@ -106,7 +105,6 @@ const PaymentMethodsScreen = () => {
         <View style={{ width: 24 }} />
       </View>
 
-      {/* Payment Methods */}
       <FlatList
         data={paymentMethods}
         keyExtractor={(item) => item.id.toString()}
@@ -120,7 +118,6 @@ const PaymentMethodsScreen = () => {
         showsVerticalScrollIndicator={false}
       />
 
-      {/* Add New Card Button */}
       <TouchableOpacity style={styles.addButton}>
         <Ionicons name="add" size={32} color="#fff" />
       </TouchableOpacity>

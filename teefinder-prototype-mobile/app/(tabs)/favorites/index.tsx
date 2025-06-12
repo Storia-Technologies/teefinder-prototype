@@ -74,7 +74,6 @@ export default function FavouritesScreen() {
 
   return (
     <View style={styles.container}>
-      {/* Header */}
       <View style={styles.header}>
         <TouchableOpacity onPress={() => router.push('/profile' as any)}>
           <Ionicons name="arrow-back" size={24} color="#171725" />
@@ -85,7 +84,6 @@ export default function FavouritesScreen() {
         </TouchableOpacity>
       </View>
 
-      {/* Search Bar */}
       <View style={styles.searchRow}>
         <Ionicons name="search-outline" size={20} color="#9CA4AB" />
         <TextInput
@@ -100,7 +98,6 @@ export default function FavouritesScreen() {
         </TouchableOpacity>
       </View>
 
-      {/* Facilities Tabs */}
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
@@ -136,7 +133,6 @@ export default function FavouritesScreen() {
         ))}
       </ScrollView>
 
-      {/* Favourites Grid */}
       <FlatList
         data={filtered}
         keyExtractor={(item) => item.id}

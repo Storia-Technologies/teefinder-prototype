@@ -137,7 +137,6 @@ export default function NotificationsScreen() {
 
   return (
     <SafeAreaView style={styles.container}>
-      {/* Header */}
       <View style={styles.header}>
         <TouchableOpacity onPress={() => router.back()}>
           <Ionicons name="arrow-back" size={24} color="#171725" />
@@ -148,7 +147,6 @@ export default function NotificationsScreen() {
         </TouchableOpacity>
       </View>
 
-      {/* Notifications List */}
       <FlatList
         data={notificationsData}
         keyExtractor={(item) => item.id}
@@ -157,7 +155,6 @@ export default function NotificationsScreen() {
         showsVerticalScrollIndicator={false}
       />
 
-      {/* Filter Modal */}
       <Modal
         visible={filterModal}
         animationType="slide"

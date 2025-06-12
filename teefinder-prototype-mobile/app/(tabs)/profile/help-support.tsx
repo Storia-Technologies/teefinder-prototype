@@ -81,16 +81,14 @@ const HelpSupportScreen = () => {
 
   return (
     <View style={styles.container}>
-      {/* Header */}
       <View style={styles.header}>
         <TouchableOpacity onPress={() => router.push('/profile')}>
           <Ionicons name="arrow-back" size={24} color="#222" />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Help and Support</Text>
-        <View style={{ width: 24 }} /> {/* Placeholder for alignment */}
+        <View style={{ width: 24 }} />
       </View>
 
-      {/* Search Bar */}
       <View style={styles.searchContainer}>
         <Ionicons name="search" size={20} color="#888" />
         <TextInput
@@ -101,7 +99,6 @@ const HelpSupportScreen = () => {
         />
       </View>
 
-      {/* Help Topics */}
       <FlatList
         data={filteredTopics}
         keyExtractor={(item) => item.id.toString()}

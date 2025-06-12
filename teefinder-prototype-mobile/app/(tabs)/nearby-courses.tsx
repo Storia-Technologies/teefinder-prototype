@@ -80,11 +80,7 @@ const NearbyCoursesScreen = () => {
           longitudeDelta: 0.05,
         }}
       >
-        {/* <Marker
-          coordinate={{ latitude: -31.995, longitude: 115.881 }}
-          title="Point Walter Golf"
-          description="$75/player"
-        /> */}
+
         {golfCourses.map((course) => (
           <Marker
             key={course.id}

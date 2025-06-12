@@ -18,16 +18,13 @@ export default function Login() {
 
   return (
     <View style={styles.container}>
-      {/* Back Button */}
       <TouchableOpacity style={styles.backBtn} onPress={() => router.back()}>
         <Ionicons name="arrow-back" size={24} color="#171725" />
       </TouchableOpacity>
 
-      {/* Title */}
       <Text style={styles.title}>Let’s Sign you in</Text>
       <Text style={styles.subtitle}>Lorem ipsum dolor sit amet, consectetur</Text>
 
-      {/* Email */}
       <Text style={styles.label}>Email Address</Text>
       <View style={styles.inputWrapper}>
         <TextInput
@@ -41,7 +38,6 @@ export default function Login() {
         />
       </View>
 
-      {/* Password */}
       <Text style={[styles.label, { marginTop: 18 }]}>Password</Text>
       <View style={styles.inputWrapper}>
         <TextInput
@@ -60,7 +56,6 @@ export default function Login() {
         </TouchableOpacity>
       </View>
 
-      {/* Remember Me & Forgot Password */}
       <View style={styles.row}>
         <TouchableOpacity style={styles.rememberRow} onPress={() => setRemember((v) => !v)}>
           <View style={[styles.checkbox, remember && styles.checkboxChecked]}>
@@ -73,7 +68,6 @@ export default function Login() {
         </TouchableOpacity>
       </View>
 
-      {/* Sign In Button */}
       <TouchableOpacity
         style={styles.signInBtn}
         onPress={handleLogin}
@@ -81,7 +75,6 @@ export default function Login() {
         <Text style={styles.signInText}>Sign In</Text>
       </TouchableOpacity>
 
-      {/* Sign Up */}
       <View style={styles.signupRow}>
         <Text style={styles.signupText}>Don’t have an account? </Text>
         <TouchableOpacity onPress={() => router.push('/auth/signup' as any)}>
@@ -89,14 +82,12 @@ export default function Login() {
         </TouchableOpacity>
       </View>
 
-      {/* Divider */}
       <View style={styles.dividerRow}>
         <View style={styles.divider} />
         <Text style={styles.orText}>Or Sign In with</Text>
         <View style={styles.divider} />
       </View>
 
-      {/* Social Buttons */}
       <View style={styles.socialRow}>
         <TouchableOpacity style={styles.socialBtn}>
           <AntDesign name="google" size={22} color="#EA4335" />
@@ -109,7 +100,6 @@ export default function Login() {
         </TouchableOpacity>
       </View>
 
-      {/* Terms */}
       <Text style={styles.terms}>
         By signing up you agree to our <Text style={styles.termsBold}>Terms</Text>
         {'\n'}and <Text style={styles.termsBold}>Conditions of Use</Text>

@@ -5,16 +5,14 @@ import { Ionicons } from '@expo/vector-icons';
 const LegalPoliciesScreen = () => {
   return (
     <View style={styles.container}>
-      {/* Header */}
       <View style={styles.header}>
         <TouchableOpacity>
           <Ionicons name="arrow-back" size={24} color="#222" />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Legal and Policies</Text>
-        <View style={{ width: 24 }} /> {/* Placeholder for alignment */}
+        <Text style={{ width: 24 }}>{''}</Text>
       </View>
 
-      {/* Content */}
       <ScrollView style={styles.content}>
         <Text style={styles.sectionTitle}>Terms</Text>
         <Text style={styles.sectionText}>

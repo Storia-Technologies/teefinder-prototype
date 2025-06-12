@@ -85,6 +85,15 @@ export default function TabLayout() {
         options={{
           title: 'Message',
           tabBarIcon: ({ color }) => <AntDesign size={28} name="message1" color={color} />,
+          headerShown: false, // Hide the header for the Message screen
+        }}
+      />
+      <Tabs.Screen
+        name="thread"
+        options={{
+          title: 'Thread',
+          headerShown: false, // Hide the header for the Message screen
+          href: null, // Ensure the thread screen does not show in the tab bar
         }}
       />
       <Tabs.Screen

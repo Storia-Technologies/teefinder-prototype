@@ -77,7 +77,6 @@ const BookingsScreen = () => {
           </View>
           <Text style={styles.location}><Ionicons name="location-outline" size={14} /> {item.location}</Text>
           <Text style={styles.price}>${item.price} <Text style={styles.perPlayer}>/player</Text></Text>
-          {/* Divider line */}
           <View style={styles.divider} />
           <View style={styles.infoRow}>
             <View style={styles.infoItem}>
@@ -100,7 +99,6 @@ const BookingsScreen = () => {
 
   return (
     <View style={styles.container}>
-      {/* Header */}
       <View style={styles.header}>
         <TouchableOpacity onPress={() => router.back()}>
           <Ionicons name="arrow-back" size={24} color="#222" />
@@ -111,7 +109,6 @@ const BookingsScreen = () => {
         </TouchableOpacity>
       </View>
 
-      {/* Search Bar */}
       <View style={styles.searchRow}>
         <View style={styles.searchBox}>
           <Ionicons name="search" size={18} color="#bbb" />
@@ -128,7 +125,6 @@ const BookingsScreen = () => {
         </TouchableOpacity>
       </View>
 
-      {/* Tabs */}
       <View style={styles.tabsRow}>
         <TouchableOpacity
           style={[styles.tabBtn, tab === 'Upcoming' && styles.tabBtnActive]}
@@ -144,7 +140,6 @@ const BookingsScreen = () => {
         </TouchableOpacity>
       </View>
 
-      {/* Bookings List */}
       <FlatList
         data={filteredBookings}
         keyExtractor={(item) => item.id}

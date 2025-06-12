@@ -32,16 +32,13 @@ export default function CreatePassword() {
 
   return (
     <View style={styles.container}>
-      {/* Back Button */}
       <TouchableOpacity style={styles.backBtn} onPress={() => router.back()}>
         <Ionicons name="arrow-back" size={24} color="#171725" />
       </TouchableOpacity>
 
-      {/* Title */}
       <Text style={styles.title}>Create Password</Text>
       <Text style={styles.subtitle}>Set a new password for your account</Text>
 
-      {/* Password */}
       <Text style={styles.label}>Password</Text>
       <View style={styles.inputWrapper}>
         <TextInput
@@ -57,7 +54,6 @@ export default function CreatePassword() {
         </TouchableOpacity>
       </View>
 
-      {/* Confirm Password */}
       <Text style={[styles.label, { marginTop: 12 }]}>Confirm Password</Text>
       <View style={styles.inputWrapper}>
         <TextInput
@@ -73,7 +69,6 @@ export default function CreatePassword() {
         </TouchableOpacity>
       </View>
 
-      {/* Continue Button */}
       <TouchableOpacity style={styles.continueBtn} onPress={handleContinue}>
         <Text style={styles.continueText}>Continue</Text>
       </TouchableOpacity>

@@ -4,7 +4,6 @@ import {
   Text,
   TouchableOpacity,
   StyleSheet,
-  FlatList,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
@@ -23,8 +22,9 @@ const LanguagesScreen = () => {
   const [selectedLanguage, setSelectedLanguage] = useState('English (US)');
   const router = useRouter();
 
-  const renderLanguageItem = (language: string) => (
+  const renderLanguageItem = (language: string, index: number) => (
     <TouchableOpacity
+      key={index} // Add unique key prop
       style={styles.languageItem}
       onPress={() => setSelectedLanguage(language)}
     >
@@ -37,25 +37,26 @@ const LanguagesScreen = () => {
 
   return (
     <View style={styles.container}>
-      {/* Header */}
       <View style={styles.header}>
         <TouchableOpacity onPress={() => router.push('/profile')}>
           <Ionicons name="arrow-back" size={24} color="#222" />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Language</Text>
-        <View style={{ width: 24 }} /> {/* Placeholder for alignment */}
+        <View style={{ width: 24 }} />
       </View>
 
-      {/* Suggested Languages */}
       <View style={styles.languageSection}>
         <Text style={styles.sectionTitle}>Suggested Languages</Text>
-        {suggestedLanguages.map((language) => renderLanguageItem(language))}
+        {suggestedLanguages.map((language, index) =>
+          renderLanguageItem(language, index)
+        )}
       </View>
 
-      {/* Other Languages */}
       <View style={styles.languageSection}>
         <Text style={styles.sectionTitle}>Other Languages</Text>
-        {otherLanguages.map((language) => renderLanguageItem(language))}
+        {otherLanguages.map((language, index) =>
+          renderLanguageItem(language, index)
+        )}
       </View>
     </View>
   );

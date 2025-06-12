@@ -13,7 +13,6 @@ export default function BookingDetailScreen() {
 
   return (
     <View style={styles.container}>
-      {/* Header */}
       <View style={styles.header}>
         <TouchableOpacity onPress={() => router.push('/bookings')}>
           <Ionicons name="arrow-back" size={24} color="#222" />
@@ -24,9 +23,7 @@ export default function BookingDetailScreen() {
         </TouchableOpacity>
       </View>
 
-      {/* Card */}
       <View style={styles.card}>
-        {/* Top Section */}
         <Text style={styles.sectionLabel}>Your Booking</Text>
         <View style={styles.topRow}>
           <Image
@@ -46,7 +43,6 @@ export default function BookingDetailScreen() {
           </View>
         </View>
 
-        {/* Location Section */}
         <View style={styles.locationRow}>
           <Text style={styles.sectionLabel}>Location</Text>
           <TouchableOpacity>
@@ -72,7 +68,6 @@ export default function BookingDetailScreen() {
           </MapView>
         </View>
 
-        {/* Booking Info */}
         <Text style={styles.sectionLabel}>Your Booking</Text>
         <View style={styles.infoRow}>
           <Ionicons name="calendar-outline" size={20} color="#8a9399" style={styles.infoIcon} />
@@ -99,7 +94,6 @@ export default function BookingDetailScreen() {
           <Text style={styles.infoValue}>0432 542 155</Text>
         </View>
 
-        {/* Barcode */}
         <View style={styles.barcodeSection}>
           <Image
             source={require('@/assets/images/barcode-placeholder.png')}

@@ -25,7 +25,6 @@ const EditPersonalInfoScreen = () => {
 
   return (
     <View style={styles.container}>
-      {/* Header */}
       <View style={styles.header}>
         <TouchableOpacity onPress={() => router.push('/profile')}>
           <Ionicons name="arrow-back" size={24} color="#222" />
@@ -40,7 +39,6 @@ const EditPersonalInfoScreen = () => {
         </TouchableOpacity>
       </View>
 
-      {/* Input Fields */}
       <View style={styles.inputContainer}>
         <Text style={styles.label}>First Name</Text>
         <TextInput
@@ -74,7 +72,6 @@ const EditPersonalInfoScreen = () => {
         />
       </View>
 
-      {/* Save Button */}
       {isEditing && (
         <TouchableOpacity
           style={[

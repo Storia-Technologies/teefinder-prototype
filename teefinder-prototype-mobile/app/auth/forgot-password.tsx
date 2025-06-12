@@ -13,16 +13,13 @@ export default function ForgotPassword() {
 
   return (
     <View style={styles.container}>
-      {/* Back Button */}
       <TouchableOpacity style={styles.backBtn} onPress={() => router.back()}>
         <Ionicons name="arrow-back" size={24} color="#171725" />
       </TouchableOpacity>
 
-      {/* Title */}
       <Text style={styles.title}>Forgot Password</Text>
       <Text style={styles.subtitle}>Recover your account password</Text>
 
-      {/* Email */}
       <Text style={styles.label}>E-mail</Text>
       <View style={styles.inputWrapper}>
         <TextInput
@@ -36,7 +33,6 @@ export default function ForgotPassword() {
         />
       </View>
 
-      {/* Next Button */}
       <TouchableOpacity style={styles.nextBtn} onPress={handleNext}>
         <Text style={styles.nextText}>Next</Text>
       </TouchableOpacity>

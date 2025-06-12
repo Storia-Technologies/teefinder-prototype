@@ -25,16 +25,14 @@ const NotificationsScreen = () => {
 
   return (
     <View style={styles.container}>
-      {/* Header */}
       <View style={styles.header}>
         <TouchableOpacity onPress={() => router.push('/profile')}>
           <Ionicons name="arrow-back" size={24} color="#222" />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Notifications</Text>
-        <View style={{ width: 24 }} /> {/* Placeholder for alignment */}
+        <View style={{ width: 24 }} />
       </View>
 
-      {/* Notifications Section */}
       <View style={styles.notificationSection}>
         <Text style={styles.sectionTitle}>Messages Notifications</Text>
         <View style={styles.notificationItem}>
