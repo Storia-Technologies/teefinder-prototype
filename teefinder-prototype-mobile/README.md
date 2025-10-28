@@ -25,7 +25,7 @@ This is an [Expo](https://expo.dev) project created with [`create-expo-app`](htt
    EXPO_PUBLIC_GOOGLE_MAPS_API_KEY=your_api_key_here
    ```
 
-The app will automatically inject this value into the Android manifest during `expo prebuild` or `expo run:android`, and screens that rely on Google Maps will render once the key is present.
+The app will automatically inject this value into the Android manifest during `expo prebuild` or `expo run:android`, and screens that rely on Google Maps will render once the key is present. After changing the value, rebuild your Android development client (`npx expo run:android`) or run `npx expo prebuild --clean` before installing a fresh build so the manifest picks up the new key.
 
 In the output, you'll find options to open the app in a
 
