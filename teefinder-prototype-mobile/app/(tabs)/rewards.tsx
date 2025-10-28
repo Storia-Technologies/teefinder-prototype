@@ -1,5 +1,6 @@
 import React from 'react';
-import { SafeAreaView, ScrollView, View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { ScrollView, View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
@@ -172,6 +173,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#F5F7FB',
   },
   content: {
+    paddingTop: 12,
     paddingHorizontal: 22,
     paddingBottom: 32,
   },
