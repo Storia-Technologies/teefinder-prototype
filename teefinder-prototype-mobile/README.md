@@ -16,6 +16,17 @@ This is an [Expo](https://expo.dev) project created with [`create-expo-app`](htt
    npx expo start
    ```
 
+## Configure Google Maps
+
+1. [Create a Google Maps API key](https://developers.google.com/maps/documentation/android-sdk/get-api-key) with the **Maps SDK for Android** enabled.
+2. Add the key to the `.env` file in the project root:
+
+   ```bash
+   EXPO_PUBLIC_GOOGLE_MAPS_API_KEY=your_api_key_here
+   ```
+
+The app will automatically inject this value into the Android manifest during `expo prebuild` or `expo run:android`, and screens that rely on Google Maps will render once the key is present.
+
 In the output, you'll find options to open the app in a
 
 - [development build](https://docs.expo.dev/develop/development-builds/introduction/)
