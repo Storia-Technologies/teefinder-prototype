@@ -22,6 +22,11 @@ const profileOptions = [
     route: '/(tabs)/profile/membership',
   },
   {
+    icon: <MaterialIcons name="receipt-long" size={22} color="#222" />,
+    label: 'Billing & Subscription',
+    route: '/profile/billing',
+  },
+  {
     icon: <MaterialIcons name="credit-card" size={22} color="#222" />,
     label: 'Your Payment Methods',
     route: '/profile/payment-methods',

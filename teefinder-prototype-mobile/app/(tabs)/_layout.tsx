@@ -114,6 +114,15 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
+        name="profile/billing"
+        options={{
+          title: 'Billing & Subscription',
+          href: null,
+          tabBarIcon: ({ color }) => <Ionicons size={28} name="person-outline" color={color} />,
+          headerShown: false,
+        }}
+      />
+      <Tabs.Screen
         name="profile/edit/index"
         options={{
           title: 'Edit Profile',

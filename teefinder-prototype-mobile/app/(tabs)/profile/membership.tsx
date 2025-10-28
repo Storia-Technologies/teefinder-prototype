@@ -81,7 +81,10 @@ const MembershipScreen = () => {
             You are saving on booking fees and collecting 30 raffle entries each month. Upgrade to Pro to unlock free
             bookings and premium prize pools.
           </Text>
-          <TouchableOpacity style={styles.summaryCta} onPress={() => {}}>
+          <TouchableOpacity
+            style={styles.summaryCta}
+            onPress={() => router.push('/profile/billing')}
+          >
             <Text style={styles.summaryCtaText}>Manage billing</Text>
           </TouchableOpacity>
         </LinearGradient>
