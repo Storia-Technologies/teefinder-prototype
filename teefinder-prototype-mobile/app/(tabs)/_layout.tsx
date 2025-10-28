@@ -97,11 +97,11 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="profile"
+        name="profile/index"
         options={{
           title: 'Profile',
           tabBarIcon: ({ color }) => <Ionicons size={28} name="person-outline" color={color} />,
-          headerShown: false, // Hide the header for the Profile screen and its nested screens
+          headerShown: false,
         }}
       />
       <Tabs.Screen
