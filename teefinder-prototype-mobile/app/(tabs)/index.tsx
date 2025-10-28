@@ -4,7 +4,7 @@ import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 import { Image } from 'expo-image';
-import { Platform, Pressable, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
 import { Stack, useRouter } from 'expo-router';
@@ -44,45 +44,6 @@ const golfCourses = [
     reviews: 100,
     originalPrice: 60,
     image: require('@/assets/images/marangaru-golf.jpg'),
-  },
-];
-
-const membershipBenefits = [
-  {
-    id: 'free',
-    tier: 'Free',
-    headline: '$4 booking fee per round',
-    entries: '4 raffle entries for every booking',
-  },
-  {
-    id: 'lite',
-    tier: 'Lite',
-    headline: '$14.99 / month',
-    entries: '30 monthly entries + $2 booking fee',
-  },
-  {
-    id: 'pro',
-    tier: 'Pro',
-    headline: '$29.99 / month',
-    entries: 'Free booking fees + bonus prize access',
-  },
-];
-
-const rewardSpotlights = [
-  {
-    id: 'gear',
-    title: 'Weekly Gear Giveaway',
-    detail: 'Drivers, putters and rangefinders from top brands.',
-  },
-  {
-    id: 'rounds',
-    title: 'Free Foursome Fridays',
-    detail: 'Win a complimentary tee time for you and friends.',
-  },
-  {
-    id: 'trips',
-    title: 'Season Grand Prize',
-    detail: 'Bucket-list golf trips and VIP tournament passes.',
   },
 ];
 
@@ -141,59 +102,35 @@ export default function HomeScreen() {
               size={30}
             />
           </View>
-          <LinearGradient
-            colors={['#14532D', '#1B7A47']}
-            style={styles.membershipCard}
-          >
-            <View style={styles.membershipHeader}>
-              <View style={{ flex: 1 }}>
-                <Text style={styles.membershipLabel}>Membership</Text>
-                <Text style={styles.membershipTitle}>Lite plan active</Text>
-                <Text style={styles.membershipSubtitle}>Collecting 30 raffle entries every month</Text>
-              </View>
-              <TouchableOpacity
-                style={styles.membershipButton}
-                onPress={() => router.push('/(tabs)/profile/membership')}
-              >
-                <Text style={styles.membershipButtonText}>View plans</Text>
-              </TouchableOpacity>
+          <View style={styles.membershipSummary}>
+            <View style={styles.membershipCopy}>
+              <Text style={styles.membershipEyebrow}>Membership</Text>
+              <Text style={styles.membershipHeadline}>Lite plan active</Text>
+              <Text style={styles.membershipDescription}>30 bonus raffle entries each month and reduced booking fees.</Text>
             </View>
-            <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ marginTop: 16 }}>
-              <View style={styles.membershipBenefitRow}>
-                {membershipBenefits.map((benefit) => (
-                  <View key={benefit.id} style={styles.membershipBenefitCard}>
-                    <Text style={styles.membershipBenefitTier}>{benefit.tier}</Text>
-                    <Text style={styles.membershipBenefitHeadline}>{benefit.headline}</Text>
-                    <Text style={styles.membershipBenefitEntries}>{benefit.entries}</Text>
-                  </View>
-                ))}
-              </View>
-            </ScrollView>
-          </LinearGradient>
-          <View style={styles.rewardsSection}>
-            <View style={styles.rewardsHeader}>
-              <Text style={styles.rewardsTitle}>Rewards & Raffles</Text>
-              <TouchableOpacity onPress={() => router.push('/(tabs)/rewards')}>
-                <Text style={styles.rewardsLink}>See details</Text>
-              </TouchableOpacity>
-            </View>
-            {rewardSpotlights.map((reward) => (
-              <View key={reward.id} style={styles.rewardRow}>
-                <View style={{ flex: 1 }}>
-                  <Text style={styles.rewardRowTitle}>{reward.title}</Text>
-                  <Text style={styles.rewardRowDescription}>{reward.detail}</Text>
-                </View>
-                <Ionicons name="chevron-forward" size={18} color="#1B7A47" />
-              </View>
-            ))}
             <TouchableOpacity
-              style={styles.rewardsCta}
-              onPress={() => router.push('/(tabs)/rewards')}
+              style={styles.membershipAction}
+              onPress={() => router.push('/(tabs)/profile/membership')}
             >
-              <Text style={styles.rewardsCtaText}>Enter this week’s raffles</Text>
-              <Ionicons name="sparkles-outline" size={18} color="#0F172A" />
+              <Text style={styles.membershipActionText}>View plans</Text>
             </TouchableOpacity>
           </View>
+          <LinearGradient
+            colors={['#DCFCE7', '#BBF7D0']}
+            style={styles.raffleBanner}
+          >
+            <View style={styles.raffleCopy}>
+              <Text style={styles.raffleTitle}>Weekly golf raffles</Text>
+              <Text style={styles.raffleSubtitle}>Tap to see this week’s equipment drops and free round giveaways.</Text>
+            </View>
+            <TouchableOpacity
+              style={styles.raffleCta}
+              onPress={() => router.push('/(tabs)/rewards')}
+            >
+              <Text style={styles.raffleCtaText}>Enter now</Text>
+              <Ionicons name="sparkles-outline" size={18} color="#14532D" />
+            </TouchableOpacity>
+          </LinearGradient>
           <View style={styles.section}>
             <View style={styles.sectionHeader}>
               <Text style={styles.sectionTitle}>Most Popular</Text>
@@ -427,128 +364,81 @@ const styles = StyleSheet.create({
     position: 'absolute',
     inset: 0,
   },
-  membershipCard: {
-    borderRadius: 16,
-    padding: 20,
-    gap: 16,
-  },
-  membershipHeader: {
+  membershipSummary: {
+    backgroundColor: '#F8FAFC',
+    borderRadius: 14,
+    borderWidth: 1,
+    borderColor: '#E2E8F0',
+    padding: 16,
     flexDirection: 'row',
-    alignItems: 'flex-start',
+    alignItems: 'center',
+    justifyContent: 'space-between',
     gap: 16,
   },
-  membershipLabel: {
-    color: 'rgba(226, 252, 203, 0.9)',
+  membershipCopy: {
+    flex: 1,
+    gap: 4,
+  },
+  membershipEyebrow: {
+    color: '#14532D',
     fontSize: 12,
     fontWeight: 600,
     letterSpacing: 0.4,
     textTransform: 'uppercase',
   },
-  membershipTitle: {
-    color: '#F0FDFA',
-    fontSize: 20,
-    fontWeight: 700,
-    marginTop: 6,
-  },
-  membershipSubtitle: {
-    color: '#BBF7D0',
-    fontSize: 13,
-    marginTop: 4,
-  },
-  membershipButton: {
-    alignSelf: 'flex-start',
-    backgroundColor: '#F8FAFC',
-    paddingVertical: 10,
-    paddingHorizontal: 16,
-    borderRadius: 999,
-  },
-  membershipButtonText: {
-    color: '#14532D',
-    fontWeight: 600,
-    fontSize: 13,
-  },
-  membershipBenefitRow: {
-    flexDirection: 'row',
-    gap: 12,
-  },
-  membershipBenefitCard: {
-    backgroundColor: 'rgba(248, 250, 252, 0.9)',
-    borderRadius: 14,
-    padding: 14,
-    width: 180,
-    gap: 6,
-  },
-  membershipBenefitTier: {
+  membershipHeadline: {
     color: '#0F172A',
+    fontSize: 16,
     fontWeight: 700,
-    fontSize: 14,
   },
-  membershipBenefitHeadline: {
-    color: '#14532D',
+  membershipDescription: {
+    color: '#475569',
+    fontSize: 13,
+  },
+  membershipAction: {
+    backgroundColor: '#14532D',
+    borderRadius: 999,
+    paddingHorizontal: 16,
+    paddingVertical: 10,
+  },
+  membershipActionText: {
+    color: '#F8FAFC',
     fontWeight: 600,
-    fontSize: 12,
+    fontSize: 13,
   },
-  membershipBenefitEntries: {
-    color: '#1F2937',
-    fontSize: 12,
-  },
-  rewardsSection: {
-    backgroundColor: '#FFFFFF',
+  raffleBanner: {
     borderRadius: 16,
     padding: 18,
-    gap: 14,
-    shadowColor: '#000',
-    shadowOpacity: 0.05,
-    shadowRadius: 12,
-    shadowOffset: { width: 0, height: 4 },
-    elevation: 3,
-  },
-  rewardsHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  rewardsTitle: {
-    fontSize: 18,
-    fontWeight: 600,
-    color: '#0F172A',
-  },
-  rewardsLink: {
-    color: '#1B7A47',
-    fontWeight: 600,
-    fontSize: 13,
-  },
-  rewardRow: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 16,
-    paddingVertical: 10,
   },
-  rewardRowTitle: {
-    fontSize: 15,
-    fontWeight: 600,
-    color: '#0B1120',
+  raffleCopy: {
+    flex: 1,
+    gap: 6,
   },
-  rewardRowDescription: {
-    color: '#475569',
+  raffleTitle: {
+    fontSize: 18,
+    fontWeight: 700,
+    color: '#14532D',
+  },
+  raffleSubtitle: {
     fontSize: 13,
-    marginTop: 2,
+    color: '#166534',
   },
-  rewardsCta: {
-    marginTop: 4,
-    backgroundColor: '#DCFCE7',
-    borderRadius: 999,
-    paddingVertical: 12,
-    paddingHorizontal: 18,
+  raffleCta: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
-    gap: 12,
+    gap: 6,
+    backgroundColor: '#F0FDF4',
+    borderRadius: 999,
+    paddingVertical: 10,
+    paddingHorizontal: 14,
   },
-  rewardsCtaText: {
-    color: '#0F172A',
-    fontWeight: 600,
+  raffleCtaText: {
     fontSize: 14,
+    fontWeight: 700,
+    color: '#14532D',
   },
   tabBtn: {
     borderRadius: 8
