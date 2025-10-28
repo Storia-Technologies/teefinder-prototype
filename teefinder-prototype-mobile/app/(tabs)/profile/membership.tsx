@@ -1,7 +1,8 @@
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
+import { SafeAreaView, View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
+import { useRouter } from 'expo-router';
 
 const membershipTiers = [
   {
@@ -50,116 +51,155 @@ const membershipTiers = [
 ];
 
 const MembershipScreen = () => {
+  const router = useRouter();
+
   return (
-    <ScrollView style={styles.container} contentContainerStyle={{ paddingBottom: 40 }}>
-      <Text style={styles.header}>Membership Plans</Text>
-      <Text style={styles.subheader}>
-        Choose the plan that fits your tee time routine. Every tier unlocks raffle entries and member-only rewards.
-      </Text>
-
-      <LinearGradient colors={["#14532D", "#166534"]} style={styles.summaryCard}>
-        <View style={styles.summaryHeader}>
-          <Ionicons name="golf-outline" size={26} color="#BBF7D0" />
-          <Text style={styles.summaryTitle}>Lite Member</Text>
+    <SafeAreaView style={styles.safeArea}>
+      <ScrollView
+        style={styles.container}
+        contentContainerStyle={styles.content}
+        showsVerticalScrollIndicator={false}
+      >
+        <View style={styles.header}>
+          <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
+            <Ionicons name="arrow-back" size={22} color="#0F172A" />
+          </TouchableOpacity>
+          <Text style={styles.headerTitle}>Membership Plans</Text>
+          <View style={styles.headerSpacer} />
         </View>
-        <Text style={styles.summaryCopy}>
-          You are saving on booking fees and collecting 30 raffle entries each month. Upgrade to Pro to unlock free
-          bookings and premium prize pools.
+        <Text style={styles.subheader}>
+          Choose the plan that fits your tee time routine. Every tier unlocks raffle entries and member-only rewards.
         </Text>
-        <TouchableOpacity style={styles.summaryCta} onPress={() => {}}>
-          <Text style={styles.summaryCtaText}>Manage billing</Text>
-        </TouchableOpacity>
-      </LinearGradient>
 
-      <View style={{ gap: 18, marginTop: 28 }}>
-        {membershipTiers.map((tier) => (
-          <LinearGradient
-            key={tier.id}
-            colors={tier.colors}
-            start={{ x: 0, y: 0 }}
-            end={{ x: 1, y: 1 }}
-            style={[styles.tierCard, tier.id === 'pro' && styles.proTierCard]}
-          >
-            <View style={styles.tierHeader}>
-              <View style={styles.tierTitleGroup}>
-                <Text style={styles.tierName}>{tier.name}</Text>
-                <Text style={styles.tierDescription}>{tier.description}</Text>
-              </View>
-              <View style={styles.priceGroup}>
-                <Text style={styles.price}>{tier.price}</Text>
-                <Text style={styles.cadence}>{tier.cadence}</Text>
-              </View>
-            </View>
+        <LinearGradient colors={["#14532D", "#166534"]} style={styles.summaryCard}>
+          <View style={styles.summaryHeader}>
+            <Ionicons name="golf-outline" size={26} color="#BBF7D0" />
+            <Text style={styles.summaryTitle}>Lite Member</Text>
+          </View>
+          <Text style={styles.summaryCopy}>
+            You are saving on booking fees and collecting 30 raffle entries each month. Upgrade to Pro to unlock free
+            bookings and premium prize pools.
+          </Text>
+          <TouchableOpacity style={styles.summaryCta} onPress={() => {}}>
+            <Text style={styles.summaryCtaText}>Manage billing</Text>
+          </TouchableOpacity>
+        </LinearGradient>
 
-            <View style={styles.highlightRow}>
-              <Ionicons name="sparkles-outline" size={18} color="#1F2937" />
-              <Text style={styles.highlightText}>{tier.highlight}</Text>
-            </View>
-
-            <View style={styles.featureList}>
-              {tier.features.map((feature) => (
-                <View key={feature} style={styles.featureRow}>
-                  <MaterialCommunityIcons name="check-circle" size={18} color={tier.accent ?? '#15803D'} />
-                  <Text style={styles.featureText}>{feature}</Text>
-                </View>
-              ))}
-            </View>
-
-            <TouchableOpacity
-              style={[styles.tierCta, tier.id === 'pro' ? styles.primaryCta : styles.secondaryCta]}
-              onPress={() => {}}
+        <View style={{ gap: 18, marginTop: 28 }}>
+          {membershipTiers.map((tier) => (
+            <LinearGradient
+              key={tier.id}
+              colors={tier.colors}
+              start={{ x: 0, y: 0 }}
+              end={{ x: 1, y: 1 }}
+              style={[styles.tierCard, tier.id === 'pro' && styles.proTierCard]}
             >
-              <Text style={[styles.tierCtaText, tier.id === 'pro' && styles.primaryCtaText]}>
-                {tier.id === 'free' ? 'Stay on Free plan' : tier.id === 'lite' ? 'Switch to Lite' : 'Upgrade to Pro'}
-              </Text>
-            </TouchableOpacity>
-          </LinearGradient>
-        ))}
-      </View>
+              <View style={styles.tierHeader}>
+                <View style={styles.tierTitleGroup}>
+                  <Text style={styles.tierName}>{tier.name}</Text>
+                  <Text style={styles.tierDescription}>{tier.description}</Text>
+                </View>
+                <View style={styles.priceGroup}>
+                  <Text style={styles.price}>{tier.price}</Text>
+                  <Text style={styles.cadence}>{tier.cadence}</Text>
+                </View>
+              </View>
 
-      <View style={styles.compareSection}>
-        <Text style={styles.compareTitle}>Plan Comparison</Text>
-        <View style={styles.compareRow}>
-          <Text style={styles.compareLabel}>Booking fees</Text>
-          <Text style={styles.compareValue}>$4 • $2 • $0</Text>
+              <View style={styles.highlightRow}>
+                <Ionicons name="sparkles-outline" size={18} color="#1F2937" />
+                <Text style={styles.highlightText}>{tier.highlight}</Text>
+              </View>
+
+              <View style={styles.featureList}>
+                {tier.features.map((feature) => (
+                  <View key={feature} style={styles.featureRow}>
+                    <MaterialCommunityIcons name="check-circle" size={18} color={tier.accent ?? '#15803D'} />
+                    <Text style={styles.featureText}>{feature}</Text>
+                  </View>
+                ))}
+              </View>
+
+              <TouchableOpacity
+                style={[styles.tierCta, tier.id === 'pro' ? styles.primaryCta : styles.secondaryCta]}
+                onPress={() => {}}
+              >
+                <Text style={[styles.tierCtaText, tier.id === 'pro' && styles.primaryCtaText]}>
+                  {tier.id === 'free' ? 'Stay on Free plan' : tier.id === 'lite' ? 'Switch to Lite' : 'Upgrade to Pro'}
+                </Text>
+              </TouchableOpacity>
+            </LinearGradient>
+          ))}
         </View>
-        <View style={styles.compareRow}>
-          <Text style={styles.compareLabel}>Monthly raffle entries</Text>
-          <Text style={styles.compareValue}>4 per booking • 30 • 45 + bonus</Text>
+
+        <View style={styles.compareSection}>
+          <Text style={styles.compareTitle}>Plan Comparison</Text>
+          <View style={styles.compareRow}>
+            <Text style={styles.compareLabel}>Booking fees</Text>
+            <Text style={styles.compareValue}>$4 • $2 • $0</Text>
+          </View>
+          <View style={styles.compareRow}>
+            <Text style={styles.compareLabel}>Monthly raffle entries</Text>
+            <Text style={styles.compareValue}>4 per booking • 30 • 45 + bonus</Text>
+          </View>
+          <View style={styles.compareRow}>
+            <Text style={styles.compareLabel}>Voucher benefits</Text>
+            <Text style={styles.compareValue}>Standard • Enhanced • Premium</Text>
+          </View>
+          <View style={styles.compareRow}>
+            <Text style={styles.compareLabel}>Grand prize access</Text>
+            <Text style={styles.compareValue}>Included • Early access • Priority draws</Text>
+          </View>
         </View>
-        <View style={styles.compareRow}>
-          <Text style={styles.compareLabel}>Voucher benefits</Text>
-          <Text style={styles.compareValue}>Standard • Enhanced • Premium</Text>
-        </View>
-        <View style={styles.compareRow}>
-          <Text style={styles.compareLabel}>Grand prize access</Text>
-          <Text style={styles.compareValue}>Included • Early access • Priority draws</Text>
-        </View>
-      </View>
-    </ScrollView>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
+  safeArea: {
+    flex: 1,
+    backgroundColor: '#F5F7FB',
+  },
   container: {
     flex: 1,
-    backgroundColor: '#F5F5F5',
+    backgroundColor: '#F5F7FB',
+  },
+  content: {
     paddingHorizontal: 22,
-    paddingTop: 40,
+    paddingBottom: 40,
   },
   header: {
-    fontSize: 26,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingTop: 16,
+    marginBottom: 8,
+  },
+  backButton: {
+    width: 36,
+    height: 36,
+    borderRadius: 18,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#E2E8F0',
+  },
+  headerTitle: {
+    fontSize: 24,
     fontWeight: '700',
-    color: '#0B1120',
+    color: '#0F172A',
+  },
+  headerSpacer: {
+    width: 36,
   },
   subheader: {
-    marginTop: 10,
+    marginTop: 4,
+    marginBottom: 18,
     color: '#475569',
     fontSize: 15,
     lineHeight: 22,
   },
   summaryCard: {
-    marginTop: 24,
+    marginTop: 16,
     borderRadius: 18,
     padding: 22,
     gap: 16,

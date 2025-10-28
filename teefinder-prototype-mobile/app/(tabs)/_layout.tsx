@@ -105,6 +105,15 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
+        name="profile/membership"
+        options={{
+          title: 'Membership Plans',
+          href: null,
+          tabBarIcon: ({ color }) => <Ionicons size={28} name="person-outline" color={color} />,
+          headerShown: false, // Hide the header for the Membership screen and its nested screens
+        }}
+      />
+      <Tabs.Screen
         name="profile/edit/index"
         options={{
           title: 'Edit Profile',

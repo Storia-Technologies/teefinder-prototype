@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { SafeAreaView, ScrollView, View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
@@ -53,11 +53,25 @@ const RewardsScreen = () => {
   const router = useRouter();
 
   return (
-    <ScrollView style={styles.container} contentContainerStyle={{ paddingBottom: 32 }}>
-      <Text style={styles.header}>Rewards & Raffles</Text>
-      <Text style={styles.subheader}>
-        Turn every booking into entries for exclusive golf rewards, discounted gear, and unforgettable experiences.
-      </Text>
+    <SafeAreaView style={styles.safeArea}>
+      <ScrollView
+        style={styles.container}
+        contentContainerStyle={styles.content}
+        showsVerticalScrollIndicator={false}
+      >
+        <View style={styles.header}>
+          <Text style={styles.headerTitle}>Rewards & Raffles</Text>
+          <TouchableOpacity
+            style={styles.headerLink}
+            onPress={() => router.push('/(tabs)/profile/membership')}
+          >
+            <Ionicons name="sparkles-outline" size={18} color="#0F172A" />
+            <Text style={styles.headerLinkText}>Memberships</Text>
+          </TouchableOpacity>
+        </View>
+        <Text style={styles.subheader}>
+          Turn every booking into entries for exclusive golf rewards, discounted gear, and unforgettable experiences.
+        </Text>
 
       <LinearGradient colors={["#2f855a", "#276749"]} style={styles.overviewCard}>
         <View style={styles.overviewHeader}>
@@ -143,24 +157,53 @@ const RewardsScreen = () => {
           </View>
         </View>
       </View>
-    </ScrollView>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
+  safeArea: {
+    flex: 1,
+    backgroundColor: '#F5F7FB',
+  },
   container: {
     flex: 1,
     backgroundColor: '#F5F7FB',
+  },
+  content: {
     paddingHorizontal: 22,
-    paddingTop: 40,
+    paddingBottom: 32,
   },
   header: {
-    fontSize: 26,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingTop: 16,
+    marginBottom: 8,
+  },
+  headerTitle: {
+    fontSize: 24,
     fontWeight: '700',
     color: '#0F172A',
   },
+  headerLink: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 999,
+    backgroundColor: '#E2E8F0',
+  },
+  headerLinkText: {
+    fontSize: 13,
+    fontWeight: '600',
+    color: '#0F172A',
+  },
   subheader: {
-    marginTop: 8,
+    marginTop: 4,
+    marginBottom: 16,
     color: '#475569',
     fontSize: 15,
     lineHeight: 22,
