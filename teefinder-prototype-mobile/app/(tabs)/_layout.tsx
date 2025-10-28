@@ -8,7 +8,7 @@ import TabBarBackground from '@/components/ui/TabBarBackground';
 import { Colors } from '@/constants/Colors';
 import { useColorScheme } from '@/hooks/useColorScheme';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
-import AntDesign from '@expo/vector-icons/AntDesign';
+import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { IconButton } from 'react-native-paper';
 
@@ -81,11 +81,11 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="message"
+        name="rewards"
         options={{
-          title: 'Message',
-          tabBarIcon: ({ color }) => <AntDesign size={28} name="message1" color={color} />,
-          headerShown: false, // Hide the header for the Message screen
+          title: 'Rewards',
+          tabBarIcon: ({ color }) => <MaterialCommunityIcons size={28} name="gift-outline" color={color} />,
+          headerShown: false, // Hide the header for the Rewards screen
         }}
       />
       <Tabs.Screen
