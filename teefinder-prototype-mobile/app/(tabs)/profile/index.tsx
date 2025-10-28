@@ -5,7 +5,6 @@ import {
   StyleSheet,
   Image,
   TouchableOpacity,
-  FlatList,
   Modal,
 } from 'react-native';
 import { Ionicons, MaterialIcons, Feather } from '@expo/vector-icons';
@@ -13,9 +12,24 @@ import { useRouter } from 'expo-router';
 
 const profileOptions = [
   {
+    icon: <Ionicons name="person-outline" size={22} color="#222" />,
+    label: 'Profile',
+    route: '/profile/edit',
+  },
+  {
     icon: <Ionicons name="heart-outline" size={22} color="#222" />,
     label: 'Your Favorites',
     route: '/(tabs)/favorites',
+  },
+  {
+    icon: <MaterialIcons name="workspace-premium" size={22} color="#222" />,
+    label: 'Membership & Rewards',
+    route: '/(tabs)/profile/membership',
+  },
+  {
+    icon: <MaterialIcons name="receipt-long" size={22} color="#222" />,
+    label: 'Billing & Subscription',
+    route: '/profile/billing',
   },
   {
     icon: <MaterialIcons name="credit-card" size={22} color="#222" />,
@@ -70,6 +84,10 @@ const ProfileScreen = () => {
         <View style={{ flex: 1 }}>
           <Text style={styles.name}>John Doe</Text>
           <Text style={styles.username}>@JDoe</Text>
+          <View style={styles.membershipPill}>
+            <Ionicons name="golf-outline" size={14} color="#14532D" />
+            <Text style={styles.membershipPillText}>Lite Member</Text>
+          </View>
         </View>
         <TouchableOpacity onPress={() => router.push('/profile/edit')}>
           <Feather name="edit-2" size={20} color="#222" />
@@ -159,6 +177,22 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#888',
     marginTop: 2,
+  },
+  membershipPill: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    alignSelf: 'flex-start',
+    gap: 6,
+    paddingVertical: 4,
+    paddingHorizontal: 10,
+    backgroundColor: 'rgba(20, 83, 45, 0.1)',
+    borderRadius: 999,
+    marginTop: 8,
+  },
+  membershipPillText: {
+    color: '#14532D',
+    fontSize: 12,
+    fontWeight: '600',
   },
   settingLabel: {
     color: '#bfc5cb',

@@ -1,8 +1,15 @@
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
-import React, { type FC } from 'react';
+import React, { type ComponentType } from 'react';
 
-export const withModalProvider = (Component: FC) => () => (
-  <BottomSheetModalProvider>
-    <Component />
-  </BottomSheetModalProvider>
-);
+export const withModalProvider = <P extends Record<string, unknown>>(Component: ComponentType<P>) => {
+  const WrappedComponent = (props: P) => (
+    <BottomSheetModalProvider>
+      <Component {...props} />
+    </BottomSheetModalProvider>
+  );
+
+  const componentName = Component.displayName ?? Component.name ?? 'Component';
+  WrappedComponent.displayName = `withModalProvider(${componentName})`;
+
+  return WrappedComponent;
+};

@@ -4,7 +4,7 @@ import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 import { Image } from 'expo-image';
-import { Platform, Pressable, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
 import { Stack, useRouter } from 'expo-router';
@@ -50,7 +50,6 @@ const golfCourses = [
 export default function HomeScreen() {
   const colorScheme = useColorScheme();
   const router = useRouter()
-  const [selectedFacility, setSelectedFacility] = React.useState<'all' | 'tavern' | 'hire' | 'eot'>('all');
 
   return (
     <>
@@ -103,6 +102,35 @@ export default function HomeScreen() {
               size={30}
             />
           </View>
+          <View style={styles.membershipSummary}>
+            <View style={styles.membershipCopy}>
+              <Text style={styles.membershipEyebrow}>Membership</Text>
+              <Text style={styles.membershipHeadline}>Lite plan active</Text>
+              <Text style={styles.membershipDescription}>30 bonus raffle entries each month and reduced booking fees.</Text>
+            </View>
+            <TouchableOpacity
+              style={styles.membershipAction}
+              onPress={() => router.push('/(tabs)/profile/membership')}
+            >
+              <Text style={styles.membershipActionText}>View plans</Text>
+            </TouchableOpacity>
+          </View>
+          <LinearGradient
+            colors={['#DCFCE7', '#BBF7D0']}
+            style={styles.raffleBanner}
+          >
+            <View style={styles.raffleCopy}>
+              <Text style={styles.raffleTitle}>Weekly golf raffles</Text>
+              <Text style={styles.raffleSubtitle}>Tap to see this week’s equipment drops and free round giveaways.</Text>
+            </View>
+            <TouchableOpacity
+              style={styles.raffleCta}
+              onPress={() => router.push('/(tabs)/rewards')}
+            >
+              <Text style={styles.raffleCtaText}>Enter now</Text>
+              <Ionicons name="sparkles-outline" size={18} color="#14532D" />
+            </TouchableOpacity>
+          </LinearGradient>
           <View style={styles.section}>
             <View style={styles.sectionHeader}>
               <Text style={styles.sectionTitle}>Most Popular</Text>
@@ -335,6 +363,82 @@ const styles = StyleSheet.create({
   gradientBackground: {
     position: 'absolute',
     inset: 0,
+  },
+  membershipSummary: {
+    backgroundColor: '#F8FAFC',
+    borderRadius: 14,
+    borderWidth: 1,
+    borderColor: '#E2E8F0',
+    padding: 16,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: 16,
+  },
+  membershipCopy: {
+    flex: 1,
+    gap: 4,
+  },
+  membershipEyebrow: {
+    color: '#14532D',
+    fontSize: 12,
+    fontWeight: 600,
+    letterSpacing: 0.4,
+    textTransform: 'uppercase',
+  },
+  membershipHeadline: {
+    color: '#0F172A',
+    fontSize: 16,
+    fontWeight: 700,
+  },
+  membershipDescription: {
+    color: '#475569',
+    fontSize: 13,
+  },
+  membershipAction: {
+    backgroundColor: '#14532D',
+    borderRadius: 999,
+    paddingHorizontal: 16,
+    paddingVertical: 10,
+  },
+  membershipActionText: {
+    color: '#F8FAFC',
+    fontWeight: 600,
+    fontSize: 13,
+  },
+  raffleBanner: {
+    borderRadius: 16,
+    padding: 18,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 16,
+  },
+  raffleCopy: {
+    flex: 1,
+    gap: 6,
+  },
+  raffleTitle: {
+    fontSize: 18,
+    fontWeight: 700,
+    color: '#14532D',
+  },
+  raffleSubtitle: {
+    fontSize: 13,
+    color: '#166534',
+  },
+  raffleCta: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+    backgroundColor: '#F0FDF4',
+    borderRadius: 999,
+    paddingVertical: 10,
+    paddingHorizontal: 14,
+  },
+  raffleCtaText: {
+    fontSize: 14,
+    fontWeight: 700,
+    color: '#14532D',
   },
   tabBtn: {
     borderRadius: 8
