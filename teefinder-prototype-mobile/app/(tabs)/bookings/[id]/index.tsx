@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import { Ionicons, MaterialIcons, Feather } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
+import { hasGoogleMapsApiKey } from '@/constants/Config';
 
 export default function BookingDetailScreen() {
   const router = useRouter();
@@ -50,22 +51,31 @@ export default function BookingDetailScreen() {
           </TouchableOpacity>
         </View>
         <View style={styles.mapContainer}>
-          <MapView
-            style={styles.map}
-            provider={PROVIDER_GOOGLE}
-            initialRegion={{
-              latitude,
-              longitude,
-              latitudeDelta: 0.01,
-              longitudeDelta: 0.01,
-            }}
-            scrollEnabled={false}
-            zoomEnabled={false}
-            pitchEnabled={false}
-            rotateEnabled={false}
-          >
-            <Marker coordinate={{ latitude, longitude }} />
-          </MapView>
+          {hasGoogleMapsApiKey ? (
+            <MapView
+              style={styles.map}
+              provider={PROVIDER_GOOGLE}
+              initialRegion={{
+                latitude,
+                longitude,
+                latitudeDelta: 0.01,
+                longitudeDelta: 0.01,
+              }}
+              scrollEnabled={false}
+              zoomEnabled={false}
+              pitchEnabled={false}
+              rotateEnabled={false}
+            >
+              <Marker coordinate={{ latitude, longitude }} />
+            </MapView>
+          ) : (
+            <View style={[styles.map, styles.mapFallback]}>
+              <Text style={styles.mapFallbackTitle}>Google Maps unavailable</Text>
+              <Text style={styles.mapFallbackSubtitle}>
+                Add a Google Maps API key to preview the booking location.
+              </Text>
+            </View>
+          )}
         </View>
 
         <Text style={styles.sectionLabel}>Your Booking</Text>
@@ -209,6 +219,23 @@ const styles = StyleSheet.create({
   map: {
     flex: 1,
     borderRadius: 14,
+  },
+  mapFallback: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#F2F4F7',
+    padding: 16,
+    gap: 4,
+  },
+  mapFallbackTitle: {
+    fontSize: 15,
+    fontWeight: '600',
+    color: '#171725',
+  },
+  mapFallbackSubtitle: {
+    fontSize: 13,
+    color: '#66707A',
+    textAlign: 'center',
   },
   infoRow: {
     flexDirection: 'row',

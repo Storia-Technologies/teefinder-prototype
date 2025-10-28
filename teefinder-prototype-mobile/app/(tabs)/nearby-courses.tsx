@@ -8,6 +8,7 @@ import Octicons from '@expo/vector-icons/Octicons';
 import { withModalProvider } from '@/components/withModalProvider';
 import { BottomSheetBackdrop, BottomSheetBackdropProps, BottomSheetModal, BottomSheetScrollView } from '@gorhom/bottom-sheet';
 import SearchFilter from '@/components/SearchFilter';
+import { hasGoogleMapsApiKey } from '@/constants/Config';
 
 const golfCourses = [
   {
@@ -71,30 +72,38 @@ const NearbyCoursesScreen = () => {
   return (
     <View style={styles.container}>
       <StatusBar barStyle="dark-content" translucent backgroundColor="transparent" />
-      <MapView
-        style={StyleSheet.absoluteFillObject}
-        initialRegion={{
-          latitude: -31.995,
-          longitude: 115.881,
-          latitudeDelta: 0.05,
-          longitudeDelta: 0.05,
-        }}
-      >
-
-        {golfCourses.map((course) => (
-          <Marker
-            key={course.id}
-            coordinate={course.coordinate}
-          >
-            <View style={styles.markerContainer}>
-              <Image source={course.image} style={styles.markerImage} />
-              <View style={styles.ratingBadge}>
-                <Text style={styles.ratingText}>{course.rating}</Text>
+      {hasGoogleMapsApiKey ? (
+        <MapView
+          style={StyleSheet.absoluteFillObject}
+          initialRegion={{
+            latitude: -31.995,
+            longitude: 115.881,
+            latitudeDelta: 0.05,
+            longitudeDelta: 0.05,
+          }}
+        >
+          {golfCourses.map((course) => (
+            <Marker
+              key={course.id}
+              coordinate={course.coordinate}
+            >
+              <View style={styles.markerContainer}>
+                <Image source={course.image} style={styles.markerImage} />
+                <View style={styles.ratingBadge}>
+                  <Text style={styles.ratingText}>{course.rating}</Text>
+                </View>
               </View>
-            </View>
-          </Marker>
-        ))}
-      </MapView>
+            </Marker>
+          ))}
+        </MapView>
+      ) : (
+        <View style={[StyleSheet.absoluteFillObject, styles.mapFallback]}>
+          <Text style={styles.mapFallbackTitle}>Google Maps unavailable</Text>
+          <Text style={styles.mapFallbackSubtitle}>
+            Add a Google Maps API key to explore nearby courses on the map.
+          </Text>
+        </View>
+      )}
 
       <View style={[styles.header, { paddingTop: insets.top + 10 }]}>
         <View style={styles.headerNav}>
@@ -318,6 +327,23 @@ const styles = StyleSheet.create({
     borderRadius: 99,
     borderWidth: 1,
     borderColor: '#E2E4EA'
+  },
+  mapFallback: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#F2F4F7',
+    paddingHorizontal: 24,
+    gap: 6,
+  },
+  mapFallbackTitle: {
+    fontSize: 18,
+    fontWeight: '600',
+    color: '#171725',
+  },
+  mapFallbackSubtitle: {
+    fontSize: 14,
+    color: '#66707A',
+    textAlign: 'center',
   },
   markerContainer: {
     alignItems: 'center',

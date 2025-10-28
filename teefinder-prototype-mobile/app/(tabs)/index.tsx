@@ -3,7 +3,7 @@ import { HelloWave } from '@/components/HelloWave';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
-import { Image } from 'expo-image';
+import { Image } from 'react-native';
 import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
@@ -12,7 +12,8 @@ import { Icon, IconButton } from 'react-native-paper';
 import { Colors } from '@/constants/Colors';
 import { useColorScheme } from '@/hooks/useColorScheme.web';
 import Ionicons from '@expo/vector-icons/Ionicons';
-import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
+import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
+import { hasGoogleMapsApiKey } from '@/constants/Config';
 
 const golfCourses = [
   {
@@ -23,7 +24,7 @@ const golfCourses = [
     rating: 4.5,
     reviews: 100,
     originalPrice: 60,
-    image: require('@/assets/images/marangaru-golf.jpg'),
+    image: require('../../assets/images/marangaru-golf.jpg'), // <-- changed to relative path
   },
   {
     id: 2,
@@ -33,7 +34,7 @@ const golfCourses = [
     rating: 4.5,
     reviews: 100,
     originalPrice: 60,
-    image: require('@/assets/images/marangaru-golf.jpg'),
+    image: require('../../assets/images/collier.jpg'), // <-- changed to relative path
   },
   {
     id: 3,
@@ -43,7 +44,7 @@ const golfCourses = [
     rating: 4.0,
     reviews: 100,
     originalPrice: 60,
-    image: require('@/assets/images/marangaru-golf.jpg'),
+    image: require('../../assets/images/kennedy.jpg'), // <-- changed to relative path
   },
 ];
 
@@ -53,37 +54,42 @@ export default function HomeScreen() {
 
   return (
     <>
-      <Stack.Screen options={{
-        headerTitle: () => (<View style={styles.headerTitle}>
-          <Image source={require('@/assets/images/avatar.png')} style={styles.avatarLogo} />
-          <View>
-            <Text style={{ fontWeight: 600, fontSize: 16 }}>John Doe</Text>
-            <Text style={{ fontSize: 14, color: '#66707A' }}><Icon
-              source="map-marker-outline"
-              color={'#66707A'}
-              size={16}
-            />Perth, WA</Text>
-          </View>
-        </View>),
-        headerRight: () => (
-          <View style={{ ...styles.headerTitle, paddingRight: 12, gap: 0 }}>
-            <IconButton
-              icon="magnify"
-              mode='outlined'
-              size={20}
-              onPress={()=>router.navigate('/(tabs)/search')}
-            />
-
-            <IconButton
-              icon="bell-badge-outline"
-              mode='outlined'
-              size={20}
-              onPress={() => router.navigate('/(tabs)/notifications')}
-            />
-
-          </View>
-        )
-      }} />
+      <Stack.Screen
+        options={{
+          headerTitle: () => (
+            <View style={[styles.headerTitle, { flex: 1, justifyContent: 'flex-start', alignItems: 'center', flexDirection: 'row' }]}>
+              <Image source={require('@/assets/images/avatar.png')} style={styles.avatarLogo} />
+              <View>
+                <Text style={{ fontWeight: 600, fontSize: 16 }}>John Doe</Text>
+                <Text style={{ fontSize: 14, color: '#66707A' }}>
+                  <Icon
+                    source="map-marker-outline"
+                    color={'#66707A'}
+                    size={16}
+                  />Perth, WA
+                </Text>
+              </View>
+            </View>
+          ),
+          headerTitleAlign: 'left', // <-- This ensures left alignment on iOS
+          headerRight: () => (
+            <View style={{ ...styles.headerTitle, paddingRight: 12, gap: 0 }}>
+              <IconButton
+                icon="magnify"
+                mode='outlined'
+                size={20}
+                onPress={() => router.navigate('/(tabs)/search')}
+              />
+              <IconButton
+                icon="bell-badge-outline"
+                mode='outlined'
+                size={20}
+                onPress={() => router.navigate('/(tabs)/notifications')}
+              />
+            </View>
+          )
+        }}
+      />
       <ScrollView style={{ padding: 14 }}>
         <View style={{ gap: 24 }}>
           <View style={{ backgroundColor: '#33961B', padding: 16, borderRadius: 12, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: 5 }}>
@@ -140,10 +146,24 @@ export default function HomeScreen() {
               <View style={{ flexDirection: 'row', gap: 12 }}>
                 {golfCourses.map((course) => (
                   <View key={course.id} style={{
-                    borderRadius: 12, height: 220, width: 156, overflow: 'hidden',
+                    borderRadius: 12,
+                    height: 220,
+                    width: 156,
+                    overflow: 'hidden',
                     justifyContent: 'space-between'
                   }}>
-                    <Image source={course.image} style={{ position: 'absolute', inset: 0, borderRadius: 12 }} />
+                    <Image
+                      source={course.image}
+                      style={{
+                        position: 'absolute',
+                        top: 0,
+                        left: 0,
+                        width: '100%',
+                        height: '100%',
+                        borderRadius: 12,
+                        resizeMode: 'cover', // Ensures the image covers the vertical space
+                      }}
+                    />
                     <LinearGradient
                       colors={['rgba(0,0,0,0)', 'rgba(0,0,0,0.7)']}
                       style={styles.gradientBackground}
@@ -250,17 +270,26 @@ export default function HomeScreen() {
               </TouchableOpacity>
             </View>
             <View style={styles.mapContainer}>
-              <MapView
-                style={styles.map}
-                provider={PROVIDER_GOOGLE}
-                initialRegion={{
-                  latitude: -31.995,
-                  longitude: 115.881,
-                  latitudeDelta: 0.05,
-                  longitudeDelta: 0.05,
-                }}
-              >
-              </MapView>
+              {hasGoogleMapsApiKey ? (
+                <MapView
+                  style={styles.map}
+                  provider={PROVIDER_GOOGLE}
+                  initialRegion={{
+                    latitude: -31.995,
+                    longitude: 115.881,
+                    latitudeDelta: 0.05,
+                    longitudeDelta: 0.05,
+                  }}
+                >
+                </MapView>
+              ) : (
+                <View style={[styles.map, styles.mapFallback]}>
+                  <Text style={styles.mapFallbackTitle}>Google Maps unavailable</Text>
+                  <Text style={styles.mapFallbackSubtitle}>
+                    Add a Google Maps API key to enable the nearby courses map.
+                  </Text>
+                </View>
+              )}
             </View>
           </View>
           <View style={styles.section}>
@@ -614,6 +643,23 @@ const styles = StyleSheet.create({
   },
   map: {
     flex: 1,
+  },
+  mapFallback: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#F2F4F7',
+    padding: 24,
+    gap: 4,
+  },
+  mapFallbackTitle: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#171725',
+  },
+  mapFallbackSubtitle: {
+    fontSize: 14,
+    color: '#66707A',
+    textAlign: 'center',
   },
   fireEmoji: {
     fontSize: 16,

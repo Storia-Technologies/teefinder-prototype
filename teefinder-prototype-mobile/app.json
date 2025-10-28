@@ -13,6 +13,11 @@
       "bundleIdentifier": "com.storia.teefinder.prototype",
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false
+      },
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyBt9SfY8jgOLt0IbcwkjE2sp8bJqbX0ODk"
+        }
       }
     },
     "android": {
@@ -21,7 +26,12 @@
         "backgroundColor": "#ffffff"
       },
       "edgeToEdgeEnabled": true,
-      "package": "com.storia.teefinder.prototype"
+      "package": "com.storia.teefinder.prototype",
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyATJ5ivs-oOE1W-7e8ZXlzzlmu0jpcVyjo"
+        }
+      }
     },
     "web": {
       "bundler": "metro",

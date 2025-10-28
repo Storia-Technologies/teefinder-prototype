@@ -6,6 +6,7 @@ import { useRouter } from 'expo-router'
 import { Button, Menu } from 'react-native-paper'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import ShareModal from '@/components/ShareModal'
+import { hasGoogleMapsApiKey } from '@/constants/Config'
 const facilities = [
   { id: "tavern", name: "Tavern", icon: "beer-outline" },
   { id: "restaurant", name: "Restaurant", icon: "restaurant-outline" },
@@ -131,16 +132,25 @@ const DetailsScreen = () => {
           </View>
           <View style={styles.mapContainer} >
             <View style={styles.mapLocationContainer}>
-              <MapView
-                style={styles.map}
-                provider={PROVIDER_GOOGLE}
-                initialRegion={{
-                  latitude: -31.995,
-                  longitude: 115.881,
-                  latitudeDelta: 0.05,
-                  longitudeDelta: 0.05,
-                }}
-              />
+              {hasGoogleMapsApiKey ? (
+                <MapView
+                  style={styles.map}
+                  provider={PROVIDER_GOOGLE}
+                  initialRegion={{
+                    latitude: -31.995,
+                    longitude: 115.881,
+                    latitudeDelta: 0.05,
+                    longitudeDelta: 0.05,
+                  }}
+                />
+              ) : (
+                <View style={[styles.map, styles.mapFallback]}>
+                  <Text style={styles.mapFallbackTitle}>Google Maps unavailable</Text>
+                  <Text style={styles.mapFallbackSubtitle}>
+                    Add a Google Maps API key to show the course location.
+                  </Text>
+                </View>
+              )}
             </View>
             <View style={styles.locationContainer}>
               <Ionicons name="location" size={18} color="#266807" />
@@ -356,6 +366,23 @@ const styles = StyleSheet.create({
   },
   map: {
     flex: 1,
+  },
+  mapFallback: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#F2F4F7',
+    padding: 24,
+    gap: 4,
+  },
+  mapFallbackTitle: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#171725',
+  },
+  mapFallbackSubtitle: {
+    fontSize: 14,
+    color: '#66707A',
+    textAlign: 'center',
   },
   reviewItem: {
     marginBottom: 16,
