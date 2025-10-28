@@ -12,6 +12,11 @@ import { useRouter } from 'expo-router';
 
 const profileOptions = [
   {
+    icon: <Ionicons name="person-outline" size={22} color="#222" />,
+    label: 'Profile',
+    route: '/profile/edit',
+  },
+  {
     icon: <Ionicons name="heart-outline" size={22} color="#222" />,
     label: 'Your Favorites',
     route: '/(tabs)/favorites',
